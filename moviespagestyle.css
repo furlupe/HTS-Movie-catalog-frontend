@@ -1,0 +1,27 @@
+.navbar > .navbar-brand {
+    margin-left: 20px;
+}
+
+.navbar > .right-side {
+    margin-right: 20px;
+}
+
+.movie-template {
+    margin: 20px 125px 20px 125px;
+}
+
+.boldText {
+    font-weight: bold!important;
+}
+
+.movie-poster {
+    width: 150px!important;
+    height: 175px!important;
+}
+
+.movie-rating {
+    margin-left: 70px;
+    color: white;
+    padding: 2px 6px 2px 6px;
+    border-radius: 10px;
+}

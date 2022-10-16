@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="./moviespagestyle.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+        <script src="requests.js"></script>
+    </head>
+    <body>
+        <!-- placeholder для навбара, заменяется в nav.js -->
+        <div id="nav-placeholder"></div>
+        <div id="movies"></div>
+
+        <div class="card d-none movie-template"> 
+            <div class="card-body">
+                <div class="row">
+                    <img class="col-2-md movie-poster align-self-center" src="/images/palceholder.png">
+                    <div class="col-8 align-items-end">
+                        <h4 class="movie-name boldText">Название фильма</h4>
+                        <p class="movie-year">Год выпуска</p>
+                        <p class="pt-5 movie-extinfo">Страна • жанр, жанр, ...</p>
+                    </div>
+                    <div class="col-sm d-flex offset-md-1 align-self-center">
+                        <div class="movie-rating my-auto" style="background-color: #0E6EFD;">
+                            Средняя оценка - 10.0
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+        <script src="./nav.js"></script>
+        <script src="./moviescatalog.js"></script>
+    </body>
+</html>
