@@ -44,8 +44,8 @@ function show(){
 
 function registerPressMovieEvents() {
     $(".movie-template").click(function() {
-        window.localStorage.setItem("selectedMovieID", $(this).attr("id").replace("movie-", "")); // сохраняем выбранный фильм для другой страницы
-        window.location.replace("/moviedetails.html"); // переходим на страницу
+        localStorage.setItem("selectedMovieID", $(this).attr("id").replace("movie-", "")); // сохраняем выбранный фильм для другой страницы
+        location.replace("/moviedetails.html"); // переходим на страницу
     })
 }
 

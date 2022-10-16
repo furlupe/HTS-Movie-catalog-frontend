@@ -18,6 +18,10 @@ function loadNavbar() {
         $(".right-side").find("#authas").removeClass('d-none');
         $(".right-side").find("#nickname").removeClass('d-none').text(json.nickName);
         $(".right-side").find("#signout").removeClass('d-none');
+        $(".right-side").find("#signout").click(function() {
+            console.log("logging out");
+            localStorage.setItem("userToken", "");
+        })
     }) 
     .catch(() => {
         $(".right-side").find("#nickname").addClass('d-none');
@@ -25,6 +29,7 @@ function loadNavbar() {
         $(".right-side").find("#authas").addClass('d-none');
 
         $(".right-side").find("#login").removeClass('d-none');
+        $(".right-side").find("#signup").removeClass('d-none');
         $(".right-side").find("#signup").removeClass('d-none');
 
         $(".left-side").find("#favorites").addClass('d-none');
