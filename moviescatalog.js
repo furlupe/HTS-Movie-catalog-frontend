@@ -1,13 +1,4 @@
 $(document).ready(function() {
-    post("https://react-midterm.kreosoft.space/api/account/login", {
-            username: "furlupe",
-            password: "strong"
-        })
-    .then(token => {
-        localStorage.setItem("userToken", token);
-    })
-    .catch(reason => console.log(reason))
-
     showMovies();
 });
 
