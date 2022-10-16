@@ -38,7 +38,7 @@ function show(){
         }
 
         registerPressMovieEvents();
-        registerPaginationEvents();
+        //registerPaginationEvents();
     }).catch(error => console.log(error));
 }
 
@@ -50,7 +50,7 @@ function registerPressMovieEvents() {
 }
 
 // доделать, не работает перезагрузка
-function registerPaginationEvents() { 
+/*function registerPaginationEvents() { 
     $(".page-template").click(function () { 
         var id = $(this).attr('id').replace("page-", "");
 
@@ -58,7 +58,7 @@ function registerPaginationEvents() {
         window.localStorage.setItem("currentMoviesListPage", parseInt(id));
         show();
      })
-}
+}*/
 
 
 function countAvgRating(movie) {
