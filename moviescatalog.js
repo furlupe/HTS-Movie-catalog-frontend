@@ -25,10 +25,10 @@ function showMovies(){
     }).catch(error => console.log(error));
 }
 
-// шаблон для функции перехода на страницу фильма
 function registerPressMovieEvents() {
     $(".movie-template").click(function() {
-        console.log($(this).find(".movie-name").text())
+        window.localStorage.setItem("selectedMovieID", $(this).attr("id").replace("movie-", "")); // сохраняем выбранный фильм для другой страницы
+        window.location.replace("/moviedetails.html"); // переходим на страницу
     })
 }
 
