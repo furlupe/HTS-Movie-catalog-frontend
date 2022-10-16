@@ -18,8 +18,8 @@ function loadNavbar() {
         $(".right-side").find("#authas").removeClass('d-none');
         $(".right-side").find("#nickname").removeClass('d-none').text(json.nickName);
         $(".right-side").find("#signout").removeClass('d-none');
-    }, 
-    () => {
+    }) 
+    .catch(() => {
         $(".right-side").find("#nickname").addClass('d-none');
         $(".right-side").find("#signout").addClass('d-none');
         $(".right-side").find("#authas").addClass('d-none');

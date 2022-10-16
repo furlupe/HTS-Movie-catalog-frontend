@@ -1,9 +1,12 @@
 $(document).ready(function() {
-    showMovies();
+    show();
 });
 
-function showMovies(){
-    get("https://react-midterm.kreosoft.space/api/movies/1")
+function show(){
+    var page = window.localStorage.getItem("currentMoviesListPage");
+    page = page ? page : 1
+
+    get(`https://react-midterm.kreosoft.space/api/movies/${page}`)
     .then(res => {
         $("#movies").empty()
         $template = $(".movie-template");
@@ -21,7 +24,21 @@ function showMovies(){
             $("#movies").append($movieCard);
         }
 
+        $(".pagination").empty();
+        $template = $(".page-template");
+        for (var i = 1; i <= res.pageInfo.pageCount; i++) {
+            $page = $template.clone();
+            $page.removeClass('d-none');
+            $page.attr("id", `page-${i}`);
+            $page.find('.page-link').text(`${i}`);
+
+            if (i == page) $page.addClass("active");
+
+            $(".pagination").append($page);
+        }
+
         registerPressMovieEvents();
+        registerPaginationEvents();
     }).catch(error => console.log(error));
 }
 
@@ -31,6 +48,18 @@ function registerPressMovieEvents() {
         window.location.replace("/moviedetails.html"); // переходим на страницу
     })
 }
+
+// доделать, не работает перезагрузка
+function registerPaginationEvents() { 
+    $(".page-template").click(function () { 
+        var id = $(this).attr('id').replace("page-", "");
+
+        window.history.replaceState("a", "Page", `/${id}`);
+        window.localStorage.setItem("currentMoviesListPage", parseInt(id));
+        show();
+     })
+}
+
 
 function countAvgRating(movie) {
     return ((movie.reviews.length < 1) ? 0 : // если рецензий нет, вернуть 0 как среднюю оценку
