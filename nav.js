@@ -1,11 +1,8 @@
-$(document).ready(function() {
+function loadNavbar() {
     $.get("nav.html", function(data) {
         $("#nav-placeholder").replaceWith(data);
-        loadNavbar();
     });
-})
 
-function loadNavbar() {
     var token = localStorage.getItem("userToken");
     get("https://react-midterm.kreosoft.space/api/account/profile", token)
     .then(json => {
@@ -19,7 +16,6 @@ function loadNavbar() {
         $(".right-side").find("#nickname").removeClass('d-none').text(json.nickName);
         $(".right-side").find("#signout").removeClass('d-none');
         $(".right-side").find("#signout").click(function() {
-            console.log("logging out");
             localStorage.setItem("userToken", "");
         })
     }) 

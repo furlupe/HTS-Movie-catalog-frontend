@@ -1,4 +1,14 @@
 $(document).ready(function() {
+    /*post("https://react-midterm.kreosoft.space/api/account/login", {
+        username: "furlupe",
+        password: "strong"
+    })
+    .then(token => {
+        localStorage.setItem("userToken", token);
+        loadNavbar();
+        show();
+    })*/
+    loadNavbar();
     show();
 });
 
@@ -38,7 +48,7 @@ function show(){
         }
 
         registerPressMovieEvents();
-        //registerPaginationEvents();
+        registerPaginationEvents();
     }).catch(error => console.log(error));
 }
 
@@ -50,15 +60,15 @@ function registerPressMovieEvents() {
 }
 
 // доделать, не работает перезагрузка
-/*function registerPaginationEvents() { 
+function registerPaginationEvents() { 
     $(".page-template").click(function () { 
         var id = $(this).attr('id').replace("page-", "");
 
-        window.history.replaceState("a", "Page", `/${id}`);
+        //window.history.replaceState("a", "Page", `/${id}`);
         window.localStorage.setItem("currentMoviesListPage", parseInt(id));
         show();
      })
-}*/
+}
 
 
 function countAvgRating(movie) {
