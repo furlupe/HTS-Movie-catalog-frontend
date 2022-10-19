@@ -1,0 +1,29 @@
+.navbar > .navbar-brand {
+    margin-left: 20px;
+}
+
+.navbar > .right-side {
+    margin-right: 20px;
+}
+
+#maincontainer {
+    margin: 20px 125px 20px 125px;
+}
+
+#maincontainer .movie-poster {
+    width: 490px;
+    height: 625px;
+}
+
+
+#movie-info {
+    margin: 20px 20px 20px 10px;
+}
+
+.detail {
+    text-align: right!important;
+}
+
+.boldText {
+    font-weight: bold!important;
+}
