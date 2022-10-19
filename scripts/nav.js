@@ -12,9 +12,12 @@ function loadNavbar() {
         $(".navbar-authorized").removeClass("d-none");
 
         $(".navbar-authorized").find("#nickname").text(json.nickName);
-        $(".navbar-authorized").find("#signout").click(function () { 
-            localStorage.setItem("userToken", "");
-            location.reload();
+        $(".navbar-authorized").find("#signout").click(function () {
+            post("https://react-midterm.kreosoft.space/api/account/logout", {})
+            .then(respone => {
+                localStorage.setItem("userToken", respone.token);
+                location.reload();
+            });
         });
     }) 
     .catch(() => {

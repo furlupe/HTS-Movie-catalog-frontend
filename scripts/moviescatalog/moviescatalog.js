@@ -14,7 +14,7 @@ $(document).ready(function() {
 });
 
 function show(){
-    var page = window.localStorage.getItem("currentMoviesListPage");
+    var page = localStorage.getItem("currentMoviesListPage");
     page = page ? page : 1
 
     get(`https://react-midterm.kreosoft.space/api/movies/${page}`)
