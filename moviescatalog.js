@@ -5,6 +5,7 @@ $(document).ready(function() {
     })
     .then(token => {
         localStorage.setItem("userToken", token);
+        //console.log(JSON.parse(atob(token.split('.')[1])))
         loadNavbar();
         show();
     })*/
@@ -29,7 +30,8 @@ function show(){
             $movieCard.find(".movie-year").text(movie.year);
             $movieCard.find(".movie-extinfo").text(
                 `${movie.country} • ${movie.genres.map((item) => { return item.name }).join(", ")}`
-            ) // из json'а выдернуть все названия жанров, объединить в список и соединить через ,
+            ) // из json'а выдернуть все названия жанров и соединить их через ,
+
             $movieCard.find(".movie-rating").text(`Средняя оценка: ${countAvgRating(movie)}`)
             $("#movies").append($movieCard);
         }

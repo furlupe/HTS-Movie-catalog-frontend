@@ -1,18 +1,27 @@
 <!-- Шаблон навбара для пользователя 
 right-side и left-side - классы для задавания отступов
 -->
-<nav class="navbar navbar-expand-md bg-dark navbar-dark"> 
+<nav class="navbar navbar-expand-md bg-dark navbar-dark navbar-unauthorized d-none"> 
     <a class="navbar-brand ms-20" href="./index.html">Movies Catalog</a>
     <div class="navbar-nav mr-auto left-side"> 
         <a class="nav-link" href="./index.html">Фильмы</a>
-        <a class="nav-link d-none" href="./index.html" id="favorites">Избранное</a>
-        <a class="nav-link d-none" href="./index.html" id="profile">Мой профиль</a>
     </div>
     <div class="navbar-nav ms-auto right-side">
-        <a class="nav-link d-none" href="" id="login">Вход</a>
-        <a class="nav-link d-none" href="" id="signup">Регистрация</a>
-        <span class="navbar-text d-none" id="authas">Авторизирован как - &nbsp;</span>
-        <span class="navbar-text d-none" id="nickname"></span>
-        <a class="nav-link d-none" href="" id="signout">&nbsp;Выйти</a>
+        <a class="nav-link" href="" id="login">Вход</a>
+        <a class="nav-link" href="" id="signup">Регистрация</a>
+    </div>
+</nav>
+
+<nav class="navbar navbar-expand-md bg-dark navbar-dark navbar-authorized d-none">
+    <a class="navbar-brand ms-20" href="./index.html">Movies Catalog</a>
+    <div class="navbar-nav mr-auto left-side"> 
+        <a class="nav-link" href="./index.html">Фильмы</a>
+        <a class="nav-link" href="./favorites.html" id="favorites">Избранное</a>
+        <a class="nav-link" href="./index.html" id="profile">Мой профиль</a>
+    </div>
+    <div class="navbar-nav ms-auto right-side">
+        <span class="navbar-text " id="authas">Авторизирован как - &nbsp;</span>
+        <span class="navbar-text" id="nickname"></span>
+        <a class="nav-link" href="" id="signout">&nbsp;Выйти</a>
     </div>
 </nav>
