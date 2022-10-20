@@ -1,0 +1,19 @@
+.user-logged-in #favorites, #profile, #authas, #nickname, #signout {
+    display: inline;
+}
+
+.user-logged-in #login, #signup {
+    display: none;
+}
+
+.user-unauthorized #favorites, #profile, #authas, #nickname, #signout {
+    display: none;
+}
+
+.user-unauthorized #login, #signup {
+    display: inline;
+}
+
+.navbar-brand {
+    margin: 0px 20px 0px 20px;
+}
