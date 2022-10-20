@@ -1,18 +1,3 @@
-$(document).ready(function() {
-    /*post("https://react-midterm.kreosoft.space/api/account/login", {
-        username: "furlupe",
-        password: "strong"
-    })
-    .then(token => {
-        localStorage.setItem("userToken", token);
-        //console.log(JSON.parse(atob(token.split('.')[1])))
-        loadNavbar();
-        show();
-    })*/
-    loadNavbar();
-    show();
-});
-
 function show(){
     var page = localStorage.getItem("currentMoviesListPage");
     page = page ? page : 1
@@ -82,3 +67,5 @@ function countAvgRating(movie) {
         return a + b
     }, 0) / movie.reviews.length).toFixed(1);
 }
+
+show();
