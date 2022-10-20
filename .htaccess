@@ -1,4 +1,4 @@
 RewriteEngine On
 
 RewriteCond %{REQUEST_URI} ^/([0-9]+)$
-RewriteRule (.*) / [R,L]
+RewriteRule (.*) / [L]
