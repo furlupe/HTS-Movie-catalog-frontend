@@ -51,7 +51,7 @@ function registerPaginationEvents() {
     $(".page-template").click(function () { 
         var id = $(this).attr('id').replace("page-", "");
 
-        //window.history.replaceState("a", "Page", `/${id}`);
+        window.history.replaceState("a", "Page", `/${id}`);
         window.localStorage.setItem("currentMoviesListPage", parseInt(id));
         show();
      })
