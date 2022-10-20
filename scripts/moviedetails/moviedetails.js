@@ -5,7 +5,7 @@ function showMovieDetails(details) {
     $("#prod-year").text(details.year);
     $("#prod-country").text(details.country);
     $("#prod-genre").text(
-           `${details.genres.map((item) => { return item.name }).join(", ")}`
+        `${details.genres.map((item) => { return item.name }).join(", ")}`
     );
     $("#prod-length").text(`${details.time} мин.`);
     $("#prod-tagline").text(details.tagline);
