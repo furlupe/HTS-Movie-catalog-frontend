@@ -1,4 +1,4 @@
-function showReviews(reviews, userId) {
+function showReviews(reviews) {
     $template = $(".review-template")
     for(var review of reviews) {
         $r = $template.clone();
@@ -19,11 +19,29 @@ function showReviews(reviews, userId) {
         $r.find(".review-text").text(review.reviewText)
         .addClass(`text-${color}`);
         
-        if (userId == review.author.userId) {
-            $r.find(".card-footer").removeClass( "d-none");
-            localStorage.setItem("userMadeReview", "1");
+        if (localStorage.getItem("userId") != review.author.userId) {
+            $(".reviews-container").append($r);
+            continue;
         }
 
-        $("#reviews").append($r);
+        $r.find(".card-footer").removeClass( "d-none");
+
+        localStorage.setItem("userReviewId", review.id)
+        localStorage.setItem("userMadeReview", "1");
+        $('.reviews-container').prepend($r);
     }
+    registerReviewEvent();
+}
+
+function registerReviewEvent() {
+    var movieId = localStorage.getItem("selectedMovieId");
+    var id = localStorage.getItem("userReviewId")
+    $(".modify-user-review").click(() => {
+        $("#reviews .user-review-form-redacting").removeClass("d-none");
+    });
+    $(".delete-user-review").click(() => {
+        del(`https://react-midterm.kreosoft.space/api/movie/${movieId}/review/${id}/delete`);
+        console.log("removed");
+        location.reload();
+    });
 }

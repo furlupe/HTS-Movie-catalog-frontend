@@ -5,20 +5,19 @@ $(document).ready(function() {
     .then(details => {
         showMovieDetails(details);
 
-        var userId = get("https://react-midterm.kreosoft.space/api/account/profile", localStorage.getItem("userToken"))
+        get("https://react-midterm.kreosoft.space/api/account/profile", localStorage.getItem("userToken"))
         .then(profile => {
-            userId = profile.id;
-            $(".user-review-form").removeClass("d-none");
+            localStorage.setItem("userId", profile.id);
         })
-        .catch(() => {
-            userId = "";
+        .catch(e => {
+            localStorage.setItem("userId", "");
+            $(".user-review-form").addClass("d-none");
         });
 
-        showReviews(details.reviews, userId);
+        showReviews(details.reviews);
 
-        if(localStorage.getItem("userMadeReview") == "1") {
-            $(".user-review-form").addClass("d-none");
-            return;
+        if(localStorage.getItem("userMadeReview") == "0") {
+            $(".user-review-form").removeClass("d-none");
         }
 
         $(".save-review-button").click(() => {
@@ -27,6 +26,21 @@ $(document).ready(function() {
                 "rating": parseInt($(".user-review-form #reviewRating").val()),
                 "isAnonymous": $(".user-review-form #reviewAnon").is(':checked')
             })
+            .then(() => location.reload());
+        })
+
+        $(".edit-review-button").click(() => {
+            console.log("asd");
+            put(`https://react-midterm.kreosoft.space/api/movie/${localStorage.getItem("selectedMovieId")}/review/add`, {
+                "reviewText": $(".user-review-form #reviewText").val(),
+                "rating": parseInt($(".user-review-form #reviewRating").val()),
+                "isAnonymous": $(".user-review-form #reviewAnon").is(':checked')
+            })
+            .then(() => location.reload());
+        })
+
+        $(".reset-edit-review-button").click(() => {
+            $("#reviews .user-review-form-redacting").addClass("d-none");
         })
     })
     .catch(error => console.log(error));
