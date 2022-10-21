@@ -10,19 +10,19 @@
     <title>Document</title>
 </head>
 <body>
-    <nav class="navbar navbar-expand-md bg-dark navbar-dark user-unauthorized"> 
+    <nav class="navbar navbar-expand-md bg-dark navbar-dark user-unauthorized" id="navbar"> 
         <a class="navbar-brand" href="./index.html">Movies Catalog</a>
         <div class="navbar-nav left-side"> 
             <a class="nav-link" href="./index.html">Фильмы</a>
-            <a class="nav-link" href="./favorites.html" id="favorites">Избранное</a>
-            <a class="nav-link" href="./index.html" id="profile">Мой профиль</a>
+            <a class="nav-link user-logged-in-item" href="./favorites.html" id="favorites">Избранное</a>
+            <a class="nav-link user-logged-in-item" href="./index.html" id="profile">Мой профиль</a>
         </div>
         <div class="navbar-nav ms-auto right-side">
-            <a class="nav-link" href="" id="login">Вход</a>
-            <a class="nav-link" href="" id="signup">Регистрация</a>
-            <span class="navbar-text" id="authas">Авторизирован как - &nbsp;</span>
-            <span class="navbar-text" id="nickname"></span>
-            <a class="nav-link" href="" id="signout">&nbsp;Выйти</a>
+            <a class="nav-link user-unauthorized-item" href="" id="login">Вход</a>
+            <a class="nav-link user-unauthorized-item" href="" id="signup">Регистрация</a>
+            <span class="navbar-text user-logged-in-item" id="authas">Авторизирован как - &nbsp;</span>
+            <span class="navbar-text user-logged-in-item" id="nickname"></span>
+            <a class="nav-link user-logged-in-item" href="" id="signout">&nbsp;Выйти</a>
         </div>
     </nav>
     

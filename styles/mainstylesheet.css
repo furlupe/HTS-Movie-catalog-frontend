@@ -1,19 +1,15 @@
-.user-logged-in #favorites, #profile, #authas, #nickname, #signout {
+.user-logged-in .user-logged-in-item, .user-unauthorized .user-unauthorized-item {
     display: inline;
 }
 
-.user-logged-in #login, #signup {
+.user-logged-in .user-unauthorized-item, .user-unauthorized .user-logged-in-item {
     display: none;
-}
-
-.user-unauthorized #favorites, #profile, #authas, #nickname, #signout {
-    display: none;
-}
-
-.user-unauthorized #login, #signup {
-    display: inline;
 }
 
 .navbar-brand {
     margin: 0px 20px 0px 20px;
+}
+
+.right-side {
+    margin-right: 20px;
 }
