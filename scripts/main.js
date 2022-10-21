@@ -4,13 +4,17 @@ $(document).ready(function () {
 
     var keyword = getContentKeyWord(path);
 
-    switch(keyword) {}
+    switch(keyword) {
+        case "detailspage":
+            var id = path.match(/\/.+/);
+            localStorage.setItem("selectedMovieID", id[0]);
+    }
 
     var addable = ADDABLE_HTML[keyword];
 
     $('body').append(addable.body);
     $.get(addable.content, function(data) {
-        $(".content").replaceWith(data);
+        console.log(data);
     });
 
     get("https://react-midterm.kreosoft.space/api/account/profile", localStorage.getItem("userToken"))
@@ -32,6 +36,10 @@ const ADDABLE_HTML = {
     "catalogpage": {
         "body": "<script src='./scripts/moviescatalog/moviescatalog.js'></script>",
         "content": "moviescatalog.html"
+    },
+    "detailspage": {
+        "body": '<a></a>',
+        "content": "moviedetails.html"
     }
 };
 
@@ -39,7 +47,9 @@ const ADDABLE_HTML = {
 var getContentKeyWord = (path) => {
     switch(true) {
         case !path.length:
-        case /[1-9][0-9]*/.test(path): 
+        case /^[1-9][0-9]*$/.test(path): 
             return "catalogpage"; // страница каталога фильмов
+        case /^movie\/.+$/.test(path):
+            return "detailspage";
     }
 }
