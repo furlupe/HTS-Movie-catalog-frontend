@@ -21,6 +21,5 @@ function get(url, token) {
     })
     .then(response => {
         return response.json()
-    })
-    .catch(reason => console.log(reason))
+    });
 }
