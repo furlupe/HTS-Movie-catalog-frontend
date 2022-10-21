@@ -3,23 +3,40 @@ function post(url, body) {
         method: 'POST',
         body: JSON.stringify(body),
         headers: new Headers({
+            "Authorization": "Bearer " + localStorage.getItem("userToken"),
             'Content-Type': 'application/json'
         })
     })
-    .then(response => response.json())
-    .catch(reason => console.log(reason))
-    .then(user => {
-        return user.token;
-    })
 }
 
-function get(url, token) {
+function get(url) {
     return fetch(url, {
         headers: new Headers({
-            "Authorization": "Bearer " + token
+            "Authorization": "Bearer " + localStorage.getItem("userToken"),
         })
     })
     .then(response => {
         return response.json()
     });
+}
+
+function put(url, body) {
+    return fetch(url, {
+        method: 'PUT',
+        body: JSON.stringify(body),
+        headers: new Headers({
+            "Authorization": "Bearer " + localStorage.getItem("userToken"),
+            'Content-Type': 'application/json'
+        })
+    })
+}
+
+function del(url) {
+    return fetch(url, {
+        method: 'DELETE',
+        headers: new Headers({
+            "Authorization": "Bearer " + localStorage.getItem("userToken"),
+            'Content-Type': 'application/json'
+        })
+    })
 }
