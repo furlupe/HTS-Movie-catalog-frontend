@@ -2,11 +2,10 @@ $(document).ready(function () {
     var addable = ADDABLE_HTML["catalogpage"];
 
     $('body').append(addable.body);
-    $(".content").load("/moviescatalog.html");
+    $('.content').load(addable.content);
 
     get("https://react-midterm.kreosoft.space/api/account/profile", localStorage.getItem("userToken"))
     .then(profile => {
-        console.log(profile);
         $("#navbar").removeClass("user-unauthorized");
         $("#navbar").addClass("user-logged-in");
 
@@ -16,6 +15,7 @@ $(document).ready(function () {
         $("#navbar").removeClass("user-logged-in");
         $("#navbar").addClass("user-unauthorized");
     });
+
 });
 
 // необходим для определения, что вставить в блок контента
