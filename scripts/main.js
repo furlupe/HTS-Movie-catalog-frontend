@@ -1,25 +1,11 @@
 $(document).ready(function () {
-    var path = (new URL(window.location.href)).pathname;
-    path = path.slice(1, path.length);
-
-    var keyword = getContentKeyWord(path);
-
-    switch(keyword) {
-        case "detailspage":
-            var id = path.match(/\/.+/);
-            localStorage.setItem("selectedMovieID", id[0]);
-    }
-
-    var addable = ADDABLE_HTML[keyword];
+    var addable = ADDABLE_HTML["detailspage"];
 
     $('body').append(addable.body);
-    $.get(addable.content, function(data) {
-        console.log(data);
-    });
+    $('.content').load(addable.content);
 
     get("https://react-midterm.kreosoft.space/api/account/profile", localStorage.getItem("userToken"))
     .then(profile => {
-        console.log(profile);
         $("#navbar").removeClass("user-unauthorized");
         $("#navbar").addClass("user-logged-in");
 
@@ -38,7 +24,9 @@ const ADDABLE_HTML = {
         "content": "moviescatalog.html"
     },
     "detailspage": {
-        "body": '<a></a>',
+        "body": '<script src="./scripts/moviedetails/moviedetails.js"></script> \
+        <script src="./scripts/moviedetails/reviews.js"></script> \
+        <script src="./scripts/moviedetails/show_details_reviews.js"></script>',
         "content": "moviedetails.html"
     }
 };
