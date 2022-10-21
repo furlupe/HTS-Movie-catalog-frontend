@@ -16,7 +16,7 @@ $(document).ready(function() {
 
         showReviews(details.reviews);
 
-        if(localStorage.getItem("userMadeReview") == "0") {
+        if(localStorage.getItem("userMadeReview") == "0" && localStorage.getItem("userId") != "") {
             $(".user-review-form").removeClass("d-none");
         }
 
