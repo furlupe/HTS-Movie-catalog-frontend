@@ -13,9 +13,7 @@ $(document).ready(function () {
     var addable = ADDABLE_HTML[keyword];
 
     $('body').append(addable.body);
-    $.get(addable.content, function(data) {
-        $(".content").replaceWith(data);
-    });
+    $(".content").load("/moviescatalog.html");
 
     get("https://react-midterm.kreosoft.space/api/account/profile", localStorage.getItem("userToken"))
     .then(profile => {
