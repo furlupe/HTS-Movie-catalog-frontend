@@ -40,3 +40,17 @@ function del(url) {
         })
     })
 }
+
+function login(username, passwd) {
+    post("https://react-midterm.kreosoft.space/api/account/login", {
+        "username": username,
+        "password": passwd
+    })
+    .then(response => {
+        return response.json();
+    })
+    .catch(error = console.log(error))
+    .then(user => {
+        localStorage.setItem("userToken", user.token)
+    });
+}
