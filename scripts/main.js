@@ -1,16 +1,5 @@
 $(document).ready(function () {
-    var path = (new URL(window.location.href)).pathname;
-    path = path.slice(1, path.length);
-
-    var keyword = getContentKeyWord(path);
-
-    switch(keyword) {
-        case "catalogpage":
-            localStorage.setItem("currentMoviesListPage", path ? path : 1);
-            break;
-    }
-
-    var addable = ADDABLE_HTML[keyword];
+    var addable = ADDABLE_HTML["catalogpage"];
 
     $('body').append(addable.body);
     $(".content").load("/moviescatalog.html");
