@@ -1,17 +1,33 @@
 $(document).ready(function() {
-    var id = localStorage.getItem("selectedMovieID");
+    var id = localStorage.getItem("selectedMovieId");
     localStorage.setItem("userMadeReview", "0");
     get(`https://react-midterm.kreosoft.space/api/movies/details/${id}`)
     .then(details => {
-        showMovieDetails(details);
 
-        get("https://react-midterm.kreosoft.space/api/account/profile", localStorage.getItem("userToken"))
+        get("https://react-midterm.kreosoft.space/api/favorites")
+        .then(json => {
+            for (var movie of json.movies) {
+                if (movie.id != localStorage.getItem("selectedMovieId")) {
+                    continue;   
+                }
+                $("#add-to-favorites").addClass("d-none");
+                $("#remove-from-favorites").removeClass("d-none");
+                break;
+            }
+        })
+
+        showMovieDetails(details);
+        registerFavoritesEvents();
+
+        get("https://react-midterm.kreosoft.space/api/account/profile")
         .then(profile => {
             localStorage.setItem("userId", profile.id);
         })
         .catch(e => {
             localStorage.setItem("userId", "");
             $(".user-review-form").addClass("d-none");
+            $("#add-to-favorites").addClass("d-none");
+            $("#remove-from-favorites").addClass("d-none");
         });
 
         showReviews(details.reviews);
@@ -28,20 +44,26 @@ $(document).ready(function() {
             })
             .then(() => location.reload());
         })
-
-        $(".edit-review-button").click(() => {
-            console.log("asd");
-            put(`https://react-midterm.kreosoft.space/api/movie/${localStorage.getItem("selectedMovieId")}/review/add`, {
-                "reviewText": $(".user-review-form #reviewText").val(),
-                "rating": parseInt($(".user-review-form #reviewRating").val()),
-                "isAnonymous": $(".user-review-form #reviewAnon").is(':checked')
-            })
-            .then(() => location.reload());
-        })
-
-        $(".reset-edit-review-button").click(() => {
-            $("#reviews .user-review-form-redacting").addClass("d-none");
-        })
     })
     .catch(error => console.log(error));
 });
+
+function registerFavoritesEvents() {
+    $("#add-to-favorites").click(() => {
+        post(`https://react-midterm.kreosoft.space/api/favorites/${localStorage.getItem("selectedMovieId")}/add`)
+        .then(() => {
+            $("#add-to-favorites").addClass("d-none");
+            $("#remove-from-favorites").removeClass("d-none");
+        })
+        .catch(e => console.log(e));
+    });
+
+    $("#remove-from-favorites").click(() => {
+        del(`https://react-midterm.kreosoft.space/api/favorites/${localStorage.getItem("selectedMovieId")}/delete`)
+        .then(() => {
+            $("#add-to-favorites").removeClass("d-none");
+            $("#remove-from-favorites").addClass("d-none");
+        })
+        .catch(e => console.log(e));
+    });
+}

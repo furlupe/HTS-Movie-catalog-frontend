@@ -9,8 +9,10 @@ function showReviews(reviews) {
 
         $r.addClass(`border-${color}`);
 
-        $r.find(".user-avatar").attr("src", (avatar) ? avatar : "");
-        $r.find(".user-name").text(review.author.nickName);
+        $r.find(".user-avatar").attr("src", (review.isAnonymous) ? 
+            "" : (avatar ? avatar : "" ));
+
+        $r.find(".user-name").text((review.isAnonymous) ? "Аноним" : review.author.nickName);
         $r.find(".review-date").text((new Date(review.createDateTime)).toLocaleDateString());
 
         $r.find(".review-rating").text(review.rating)
@@ -36,9 +38,24 @@ function showReviews(reviews) {
 function registerReviewEvent() {
     var movieId = localStorage.getItem("selectedMovieId");
     var id = localStorage.getItem("userReviewId")
+
     $(".modify-user-review").click(() => {
         $("#reviews .user-review-form-redacting").removeClass("d-none");
     });
+
+    $(".edit-review-button").click(() => {
+        put(`https://react-midterm.kreosoft.space/api/movie/${movieId}/review/${id}/edit`, {
+            "reviewText": $(".user-review-form-redacting #reviewText").val(),
+            "rating": parseInt($(".user-review-form-redacting #reviewRating").val()),
+            "isAnonymous": $(".user-review-form-redacting #reviewAnon").is(':checked')
+        })
+        .then(() => location.reload());
+    })
+
+    $(".reset-edit-review-button").click(() => {
+        $("#reviews .user-review-form-redacting").addClass("d-none");
+    })
+
     $(".delete-user-review").click(() => {
         del(`https://react-midterm.kreosoft.space/api/movie/${movieId}/review/${id}/delete`);
         console.log("removed");

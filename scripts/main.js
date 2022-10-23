@@ -4,7 +4,7 @@ $(document).ready(function () {
     $('body').append(addable.body);
     $('.content').load(addable.content);
 
-    get("https://react-midterm.kreosoft.space/api/account/profile", localStorage.getItem("userToken"))
+    get("https://react-midterm.kreosoft.space/api/account/profile")
     .then(profile => {
         $("#navbar").removeClass("user-unauthorized");
         $("#navbar").addClass("user-logged-in");

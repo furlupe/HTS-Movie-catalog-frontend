@@ -1,4 +1,4 @@
-function post(url, body) {
+function post(url, body = {}) {
     return fetch(url, {
         method: 'POST',
         body: JSON.stringify(body),
@@ -49,7 +49,9 @@ function login(username, passwd) {
     .then(response => {
         return response.json();
     })
-    .catch(error = console.log(error))
+    .catch(res => {
+        console.log(res)
+    })
     .then(user => {
         localStorage.setItem("userToken", user.token)
     });
