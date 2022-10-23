@@ -1,7 +1,9 @@
-function showReviews(reviews) {
-    $template = $(".review-template")
+import { put, del } from "./../requests.js";
+
+export function showReviews(reviews) {
+    var $template = $(".review-template")
     for(var review of reviews) {
-        $r = $template.clone();
+        var $r = $template.clone();
         $r.removeClass("d-none");
 
         var avatar = review.author.avatar;
@@ -33,6 +35,7 @@ function showReviews(reviews) {
         $('.reviews-container').prepend($r);
     }
     registerReviewEvent();
+
 }
 
 function registerReviewEvent() {

@@ -1,4 +1,4 @@
-function showMovieDetails(details) {
+export function showMovieDetails(details) {
     $("#movie-poster").attr("src", details.poster);
     $("#movie-name").text(details.name);
     $("#movie-descr").text(details.description);
@@ -13,6 +13,7 @@ function showMovieDetails(details) {
     $("#prod-budget").text(formatMoney(details.budget));
     $("#prod-fees").text(formatMoney(details.fees));
     $("#prod-agelimit").text(`${details.ageLimit}+`);
+
 }
 
 function formatMoney(money, currency = "$") {

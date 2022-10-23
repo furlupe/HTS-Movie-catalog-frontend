@@ -1,8 +1,10 @@
+import { showDetailsPage } from "./moviedetails/show_details_reviews.js";
+import { get } from "./requests.js";
+
 $(document).ready(function () {
     var addable = ADDABLE_HTML["detailspage"];
 
-    $('body').append(addable.body);
-    $('.content').load(addable.content);
+    $('.content').load(addable, showDetailsPage());
 
     get("https://react-midterm.kreosoft.space/api/account/profile")
     .then(profile => {
@@ -19,16 +21,8 @@ $(document).ready(function () {
 
 // необходим для определения, что вставить в блок контента
 const ADDABLE_HTML = {
-    "catalogpage": {
-        "body": "<script src='./scripts/moviescatalog/moviescatalog.js'></script>",
-        "content": "moviescatalog.html"
-    },
-    "detailspage": {
-        "body": '<script src="./scripts/moviedetails/moviedetails.js"></script> \
-        <script src="./scripts/moviedetails/reviews.js"></script> \
-        <script src="./scripts/moviedetails/show_details_reviews.js"></script>',
-        "content": "moviedetails.html"
-    }
+    "catalogpage": "moviescatalog.html",
+    "detailspage": "moviedetails.html"
 };
 
 // через регулярки определяем, какая у нас страница -> определяем ключевое слово контента

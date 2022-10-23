@@ -1,6 +1,11 @@
-$(document).ready(function() {
+import { showMovieDetails } from "./moviedetails.js";
+import { showReviews } from "./reviews.js";
+import { get, post, del } from "./../requests.js";
+
+export function showDetailsPage() {
     var id = localStorage.getItem("selectedMovieId");
     localStorage.setItem("userMadeReview", "0");
+
     get(`https://react-midterm.kreosoft.space/api/movies/details/${id}`)
     .then(details => {
 
@@ -46,7 +51,7 @@ $(document).ready(function() {
         })
     })
     .catch(error => console.log(error));
-});
+}
 
 function registerFavoritesEvents() {
     $("#add-to-favorites").click(() => {
