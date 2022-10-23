@@ -1,13 +1,16 @@
-function show(){
+import {get} from "./../requests.js"
+
+export function show(){
     var page = localStorage.getItem("currentMoviesListPage");
     page = page ? page : 1
 
     get(`https://react-midterm.kreosoft.space/api/movies/${page}`)
     .then(res => {
         $("#movies").empty()
-        $template = $(".movie-template");
+        console.log($(".movie-template"))
+        var $template = $(".movie-template");
         for (var movie of res.movies) {
-            $movieCard = $template.clone(true, true);
+            var $movieCard = $template.clone(true, true);
             $movieCard.removeClass("d-none");
             $movieCard.attr("id", `movie-${movie.id}`);
             $movieCard.find(".movie-poster").attr("src", movie.poster)
@@ -22,9 +25,9 @@ function show(){
         }
 
         $(".pagination").empty();
-        $template = $(".page-template");
+        var $template = $(".page-template");
         for (var i = 1; i <= res.pageInfo.pageCount; i++) {
-            $page = $template.clone();
+            var $page = $template.clone();
             $page.removeClass('d-none');
             $page.attr("id", `page-${i}`);
             $page.find('.page-link').text(`${i}`);
@@ -37,35 +40,32 @@ function show(){
         registerPressMovieEvents();
         registerPaginationEvents();
     }).catch(error => console.log(error));
+
+    function registerPressMovieEvents() {
+        $(".movie-template").click(function() {
+            localStorage.setItem("selectedMovieID", $(this).attr("id").replace("movie-", "")); // сохраняем выбранный фильм для другой страницы
+            location.replace("/moviedetails.html"); // переходим на страницу
+        })
+    }
+    
+    // доделать, не работает перезагрузка
+    function registerPaginationEvents() { 
+        $(".page-template").click(function () { 
+            var id = $(this).attr('id').replace("page-", "");
+    
+            window.history.replaceState("a", "Page", `/${id}`);
+            window.localStorage.setItem("currentMoviesListPage", parseInt(id));
+            show();
+         })
+    }
+    
+    function countAvgRating(movie) {
+        return ((movie.reviews.length < 1) ? 0 : // если рецензий нет, вернуть 0 как среднюю оценку
+        movie.reviews.map((review) => { 
+            return review.rating 
+        })
+        .reduce((a, b) => {
+            return a + b
+        }, 0) / movie.reviews.length).toFixed(1);
+    }
 }
-
-function registerPressMovieEvents() {
-    $(".movie-template").click(function() {
-        localStorage.setItem("selectedMovieID", $(this).attr("id").replace("movie-", "")); // сохраняем выбранный фильм для другой страницы
-        location.replace("/moviedetails.html"); // переходим на страницу
-    })
-}
-
-// доделать, не работает перезагрузка
-function registerPaginationEvents() { 
-    $(".page-template").click(function () { 
-        var id = $(this).attr('id').replace("page-", "");
-
-        window.history.replaceState("a", "Page", `/${id}`);
-        window.localStorage.setItem("currentMoviesListPage", parseInt(id));
-        show();
-     })
-}
-
-
-function countAvgRating(movie) {
-    return ((movie.reviews.length < 1) ? 0 : // если рецензий нет, вернуть 0 как среднюю оценку
-    movie.reviews.map((review) => { 
-        return review.rating 
-    })
-    .reduce((a, b) => {
-        return a + b
-    }, 0) / movie.reviews.length).toFixed(1);
-}
-
-show();
