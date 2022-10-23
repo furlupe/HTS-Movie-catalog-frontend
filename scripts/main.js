@@ -1,21 +1,20 @@
+import { registerRegisterButtonEvent } from "./registration/registration.js";
+import { registerRegisterFieldsEvent } from "./registration/registration_fields.js";
+import { get } from "./requests.js";
+
 $(document).ready(function () {
-    var path = (new URL(window.location.href)).pathname;
-    path = path.slice(1, path.length);
-
-    var keyword = getContentKeyWord(path);
-
-    switch(keyword) {}
-
+    var keyword = "registrationpage";
     var addable = ADDABLE_HTML[keyword];
 
-    $('body').append(addable.body);
-    $.get(addable.content, function(data) {
-        $(".content").replaceWith(data);
-    });
+    $(".content").load(addable, 
+        () => {
+            registerRegisterButtonEvent();
+            registerRegisterFieldsEvent();
+        }
+    );
 
     get("https://react-midterm.kreosoft.space/api/account/profile", localStorage.getItem("userToken"))
     .then(profile => {
-        console.log(profile);
         $("#navbar").removeClass("user-unauthorized");
         $("#navbar").addClass("user-logged-in");
 
@@ -29,10 +28,8 @@ $(document).ready(function () {
 
 // необходим для определения, что вставить в блок контента
 const ADDABLE_HTML = {
-    "catalogpage": {
-        "body": "<script src='./scripts/moviescatalog/moviescatalog.js'></script>",
-        "content": "moviescatalog.html"
-    }
+    "catalogpage": "moviescatalog.html",
+    "registrationpage": "registrationform.html"
 };
 
 // через регулярки определяем, какая у нас страница -> определяем ключевое слово контента
