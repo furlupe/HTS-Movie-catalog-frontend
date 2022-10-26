@@ -12,10 +12,16 @@ $(document).ready(function () {
         $("#navbar").addClass("user-logged-in");
 
         $("#navbar").find("#nickname").text(profile.nickName);
+
+        localStorage.setItem("userId", profile.id);
     })
     .catch(() => {
         $("#navbar").removeClass("user-logged-in");
         $("#navbar").addClass("user-unauthorized");
+
+        $("#navbar").find("#nickname").text("");
+
+        localStorage.setItem("userId", "");
     });
 });
 

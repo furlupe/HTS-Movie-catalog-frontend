@@ -9,7 +9,7 @@ export function showDetailsPage() {
     get(`https://react-midterm.kreosoft.space/api/movies/details/${id}`)
     .then(details => {
 
-        get("https://react-midterm.kreosoft.space/api/favorites")
+        get("https://react-midterm.kreosoft.space/api/favorites") // если текущий фильм лежит в списке избранного, меняем на кнопку "убрать из избранного"
         .then(json => {
             for (var movie of json.movies) {
                 if (movie.id != localStorage.getItem("selectedMovieId")) {
@@ -21,33 +21,21 @@ export function showDetailsPage() {
             }
         })
 
-        showMovieDetails(details);
-        registerFavoritesEvents();
+        showMovieDetails(details); 
+        registerFavoritesEvents(); // обработчик нажатия на кнопкИ избранного
+        registerReviewFormEvents();
 
-        get("https://react-midterm.kreosoft.space/api/account/profile")
-        .then(profile => {
-            localStorage.setItem("userId", profile.id);
-        })
-        .catch(e => {
-            localStorage.setItem("userId", "");
+        showReviews(details.reviews)
+        .then(res => {
+            res ? null : $(".user-review-form").removeClass("d-none");
+        });
+        
+        // т.е., если пользователь не залогинен, то никакой ему формы отзыва и избранного
+        get(`https://react-midterm.kreosoft.space/api/account/profile`)
+        .catch(() => {
             $(".user-review-form").addClass("d-none");
             $("#add-to-favorites").addClass("d-none");
             $("#remove-from-favorites").addClass("d-none");
-        });
-
-        showReviews(details.reviews);
-
-        if(localStorage.getItem("userMadeReview") == "0" && localStorage.getItem("userId") != "") {
-            $(".user-review-form").removeClass("d-none");
-        }
-
-        $(".save-review-button").click(() => {
-            post(`https://react-midterm.kreosoft.space/api/movie/${localStorage.getItem("selectedMovieId")}/review/add`, {
-                "reviewText": $(".user-review-form #reviewText").val(),
-                "rating": parseInt($(".user-review-form #reviewRating").val()),
-                "isAnonymous": $(".user-review-form #reviewAnon").is(':checked')
-            })
-            .then(() => location.reload());
         })
     })
     .catch(error => console.log(error));
@@ -71,4 +59,30 @@ function registerFavoritesEvents() {
         })
         .catch(e => console.log(e));
     });
+}
+
+function registerReviewFormEvents() {
+    $(".save-review-button").click(() => {
+        post(`https://react-midterm.kreosoft.space/api/movie/${localStorage.getItem("selectedMovieId")}/review/add`, {
+            "reviewText": $(".user-review-form #reviewText").val(),
+            "rating": parseInt($(".user-review-form #reviewRating").val()),
+            "isAnonymous": $(".user-review-form #reviewAnon").is(':checked')
+        })
+        .then(() => location.reload());
+    })
+
+    $(".edit-review-button").click(() => {
+        put(`https://react-midterm.kreosoft.space/api/movie/${movieId}/review/${id}/edit`, {
+            "reviewText": $(".user-review-form #reviewText").val(),
+            "rating": parseInt($(".user-review-form #reviewRating").val()),
+            "isAnonymous": $(".user-review-form #reviewAnon").is(':checked')
+        })
+        .then(() => {
+            location.reload()
+        });
+    })
+
+    $(".cancel-edit-review-button").click(() => {
+        location.reload();
+    })
 }

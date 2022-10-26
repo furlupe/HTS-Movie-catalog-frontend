@@ -3,9 +3,8 @@
     padding: 20px 20px 20px 20px;
 }
 
-#maincontainer .movie-poster {
-    width: 490px;
-    height: 625px;
+#reviews {
+    margin-top: 20px;
 }
 
 .detail {
@@ -34,4 +33,32 @@
 
 .user-review {
     margin-top: 20px;
+}
+
+.new-review
+    .edit-review-h,
+.new-review
+    .edit-review-button,
+.new-review
+    .cancel-edit-review-button,
+.edit-review
+    .add-review-h,
+.edit-review
+    .save-review-button
+{
+    display: none;
+}
+
+.edit-review
+    .edit-review-h,
+.edit-review
+    .edit-review-button,
+.edit-review
+    .cancel-edit-review-button,
+.new-review
+    .add-review-h,
+.new-review
+    .save-review-button
+{
+    display: inline;
 }

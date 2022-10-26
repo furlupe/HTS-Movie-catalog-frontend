@@ -50,9 +50,9 @@ export function login(username, passwd) {
         return response.json();
     })
     .catch(res => {
-        console.log(res)
+        console.log(res);
     })
     .then(user => {
-        localStorage.setItem("userToken", user.token)
+        localStorage.setItem("userToken", user.token);
     });
 }
