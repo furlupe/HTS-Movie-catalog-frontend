@@ -1,3 +1,4 @@
+import { showFavorites } from "./moviefavorites/favorites.js";
 import { get } from "./requests.js";
 
 $(document).ready(function () {
@@ -5,10 +6,7 @@ $(document).ready(function () {
 
     var addable = ADDABLE_HTML[keyword];
 
-    $('body').append(addable.body);
-    $.get(addable.content, function(data) {
-        $(".content").replaceWith(data);
-    });
+    $(".content").load(addable, showFavorites());
 
     get("https://react-midterm.kreosoft.space/api/account/profile", localStorage.getItem("userToken"))
     .then(profile => {
