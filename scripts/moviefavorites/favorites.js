@@ -35,11 +35,9 @@ export function showFavorites() {
 
 function registerDeleteButtonEvents () {
     $(".remove-from-favorites").click(function() {
-        console.log($(this).data("movie"));
         del(`https://react-midterm.kreosoft.space/api/favorites/${$(this).data("movie")}/delete`)
         .then(() => {
             $(this).parent().attr("disabled", "disabled");
-            console.log("deleted");
         });
     });
 }
