@@ -6,13 +6,7 @@
     font-weight: bold!important;
 }
 
-.movie-poster {
-    width: 150px!important;
-    height: 175px!important;
-}
-
 .movie-rating {
-    margin-left: 70px;
     color: white;
     padding: 2px 6px 2px 6px;
     border-radius: 10px;
