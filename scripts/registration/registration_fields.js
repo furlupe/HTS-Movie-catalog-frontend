@@ -9,26 +9,25 @@ export function registerRegisterFieldsEvent() {
 
 export function areFieldsValid() {
     const mailformat = /^\w+([.-]?\w+)*@\w+([.-]?w+)*(.\w{2,3})+$/;
-    var invalidFields = [];
 
     switch (true) {
-        case $("#password").val().length < 6: 
-            invalidFields.push("#password");
+        case $("#password").val().length < 6: // если длина пароля < 6, сообщить
+            makeFieldInvalid("#password");
         case $("#password").val() != $("#passwordcheck").val(): 
-            invalidFields.push("#passwordcheck");
+            makeFieldInvalid("#passwordcheck"); // если не совпадают пароль и его подтверждение
         case !mailformat.test($("#email").val()):
-            invalidFields.push("#email");
+            makeFieldInvalid("#email"); // неккоректный E-mail
         case !$("#loginfield").val().length:
-            invalidFields.push("#loginfield");
+            makeFieldInvalid("#loginfield"); // пустой логин
     };
 
     if (!invalidFields.length) return true;
 
-    for (var invalidField of invalidFields) {
-        $(invalidField).addClass("border-danger");
-        $(invalidField).parent().removeClass("valid");
-        $(invalidField).parent().addClass("invalid");
-    }
-
     return false;
+}
+
+var makeFieldInvalid = (field) => {
+    $(invalidField).addClass("border-danger");
+    $(invalidField).parent().removeClass("valid");
+    $(invalidField).parent().addClass("invalid");
 }
