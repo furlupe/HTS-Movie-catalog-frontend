@@ -1,7 +1,7 @@
 import { get } from "./requests.js";
 
 $(document).ready(function () {
-    var keyword = '';
+    var keyword = 'favoritespage';
 
     var addable = ADDABLE_HTML[keyword];
 
@@ -26,7 +26,8 @@ $(document).ready(function () {
 
 // необходим для определения, что вставить в блок контента
 const ADDABLE_HTML = {
-    "catalogpage": "moviescatalog.html"
+    "catalogpage": "moviescatalog.html",
+    "favoritespage": "favorites.html"
 };
 
 // через регулярки определяем, какая у нас страница -> определяем ключевое слово контента
