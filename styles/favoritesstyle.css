@@ -22,4 +22,10 @@
 
     border-radius: 10px;
     text-align: center;
+
+    cursor: pointer;
+}
+
+.no-favorites h1 {
+    text-align: center;
 }

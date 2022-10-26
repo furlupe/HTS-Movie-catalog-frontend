@@ -1,4 +1,4 @@
-import { get } from "./../requests.js"
+import { del, get } from "./../requests.js"
 
 export function showFavorites() {
     get("https://react-midterm.kreosoft.space/api/favorites")
@@ -24,8 +24,23 @@ export function showFavorites() {
             );
 
             $f.find(".movie-rating").text(`Средняя оценка: ${countAvgRating(fav)}`)
+            $f.find(".remove-from-favorites").data("movie", fav.id);
+
             $("#favoritemovies").append($f);
         }
+
+        registerDeleteButtonEvents();
+    });
+}
+
+function registerDeleteButtonEvents () {
+    $(".remove-from-favorites").click(function() {
+        console.log($(this).data("movie"));
+        del(`https://react-midterm.kreosoft.space/api/favorites/${$(this).data("movie")}/delete`)
+        .then(() => {
+            $(this).parent().attr("disabled", "disabled");
+            console.log("deleted");
+        });
     });
 }
 
