@@ -1,10 +1,7 @@
+import { get } from "./requests.js";
+
 $(document).ready(function () {
-    var path = (new URL(window.location.href)).pathname;
-    path = path.slice(1, path.length);
-
-    var keyword = getContentKeyWord(path);
-
-    switch(keyword) {}
+   var keyword = '';
 
     var addable = ADDABLE_HTML[keyword];
 
