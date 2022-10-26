@@ -16,10 +16,10 @@
 .remove-from-favorites {
     color: white;
 
-    margin-top: 70px;
-    margin-bottom: 70px;
+    padding: 20px 30px 20px 30px;
 
     background-color: #DC3545;
 
     border-radius: 10px;
+    text-align: center;
 }
