@@ -15,3 +15,12 @@
 #pagelist {
     margin-left: 125px;
 }
+
+.card {
+    transition: transform 0.2s;
+}
+
+.card:hover {
+    cursor: pointer;
+    transform: scale(1.05, 1.05);
+}
