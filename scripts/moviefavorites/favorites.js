@@ -23,7 +23,7 @@ export function showFavorites() {
                 `${fav.country} • ${fav.genres.map((item) => { return item.name }).join(", ")}`
             );
 
-            $f.find(".movie-rating").text(`Средняя оценка: ${countAvgRating(f)}`)
+            $f.find(".movie-rating").text(`Средняя оценка: ${countAvgRating(fav)}`)
             $("#favoritemovies").append($f);
         }
     });
