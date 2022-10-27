@@ -1,9 +1,9 @@
 import { register } from "./../requests.js";
 import { areFieldsValid } from "./registration_fields.js";
 
-export function registerRegisterButtonEvent () {
-    $("#register").click(() => {
-        
+export function registerRegisterFormEvent () {
+    $("#login-form").submit((e) => {
+        e.preventDefault();
         if(!areFieldsValid()) return;
 
         register(

@@ -1,4 +1,4 @@
-import { registerRegisterButtonEvent } from "./registration/registration.js";
+import { registerRegisterFormEvent } from "./registration/registration.js";
 import { registerRegisterFieldsEvent } from "./registration/registration_fields.js";
 import { get } from "./requests.js";
 
@@ -8,7 +8,7 @@ $(document).ready(function () {
 
     $(".content").load(addable, 
         () => {
-            registerRegisterButtonEvent();
+            registerRegisterFormEvent();
             registerRegisterFieldsEvent();
         }
     );
