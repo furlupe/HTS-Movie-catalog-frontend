@@ -1,10 +1,7 @@
 import { fillCatalog } from "./moviescatalog.js";
 import { showPagination } from "./pagination.js";
 
-export function showCatalogPage() {
-    var page = localStorage.getItem("currentMoviesListPage");
-    console.log(page);
-    page = page ? page : 1
+export function showCatalogPage(page) {
     fillCatalog(page);
     showPagination(page);
 }

@@ -1,4 +1,4 @@
-import { showCatalogPage } from "./moviescatalog/moviescatalog_show.js";
+import { showCatalogPage } from "./moviescatalog/showcatalog.js";
 import { get } from "./requests.js"
 
 $(document).ready(function () {
@@ -27,11 +27,10 @@ const ADDABLE_HTML = {
     "catalogpage": {
         content: "moviescatalog.html",
         show: (url) => {
-            localStorage.setItem(
-                "currentMoviesListPage", 
-                url.match(/([1-9][0-9]*)/g)[0]
+            showCatalogPage(
+                url.length > 1 ?
+                url.match(/([1-9][0-9]*)/g)[0] : 1
             );
-            showCatalogPage()
         }
     }
 };

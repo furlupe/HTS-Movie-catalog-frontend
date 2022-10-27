@@ -1,4 +1,4 @@
-import {get} from "./../requests.js"
+import { get } from "./../requests.js"
 import { fillCatalog } from "./moviescatalog.js";
 
 export function showPagination(page){
@@ -26,8 +26,9 @@ function registerPaginationEvents() {
     $(".page-template").click(function () { 
         var id = parseInt($(this).attr('value'));
 
-        window.history.replaceState("a", "Page", `/${id}`);
+        history.replaceState("a", "Page", `/${id}`);
         localStorage.setItem("currentMoviesListPage", id);
         fillCatalog(id);
+        showPagination(id);
      })
 }

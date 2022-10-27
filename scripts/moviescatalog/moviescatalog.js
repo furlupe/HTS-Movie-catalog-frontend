@@ -8,7 +8,7 @@ export function fillCatalog(page){
         for (var movie of res.movies) {
             var $movieCard = $template.clone(true, true);
             $movieCard.removeClass("d-none");
-            $movieCard.attr("id", `movie-${movie.id}`);
+            $movieCard.attr("movie-id", movie.id);
             $movieCard.find(".movie-poster").attr("src", movie.poster)
             $movieCard.find(".movie-name").text(movie.name);
             $movieCard.find(".movie-year").text(movie.year);
@@ -27,7 +27,7 @@ export function fillCatalog(page){
 
 function registerPressMovieEvents() {
     $(".movie-template").click(function() {
-        localStorage.setItem("selectedMovieID", $(this).attr("id").replace("movie-", "")); // сохраняем выбранный фильм для другой страницы
+        localStorage.setItem("selectedMovieID", $(this).attr("movie-id")); // сохраняем выбранный фильм для другой страницы
         location.replace("/moviedetails.html"); // переходим на страницу
     })
 }
