@@ -13,6 +13,6 @@ export function registerRegisterButtonEvent () {
             $("#email").val(),
             (new Date($("#dateofbirth").val())).toISOString(),
             parseInt($("#sex").val())
-        );
+        )
     });
 }
