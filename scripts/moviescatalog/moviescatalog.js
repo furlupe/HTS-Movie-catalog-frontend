@@ -41,31 +41,32 @@ export function show(){
         registerPaginationEvents();
     }).catch(error => console.log(error));
 
-    function registerPressMovieEvents() {
-        $(".movie-template").click(function() {
-            localStorage.setItem("selectedMovieID", $(this).attr("id").replace("movie-", "")); // сохраняем выбранный фильм для другой страницы
-            location.replace("/moviedetails.html"); // переходим на страницу
-        })
-    }
-    
-    // доделать, не работает перезагрузка
-    function registerPaginationEvents() { 
-        $(".page-template").click(function () { 
-            var id = $(this).attr('id').replace("page-", "");
-    
-            window.history.replaceState("a", "Page", `/${id}`);
-            window.localStorage.setItem("currentMoviesListPage", parseInt(id));
-            show();
-         })
-    }
-    
-    function countAvgRating(movie) {
-        return ((movie.reviews.length < 1) ? 0 : // если рецензий нет, вернуть 0 как среднюю оценку
-        movie.reviews.map((review) => { 
-            return review.rating 
-        })
-        .reduce((a, b) => {
-            return a + b
-        }, 0) / movie.reviews.length).toFixed(1);
-    }
+}
+
+function registerPressMovieEvents() {
+    $(".movie-template").click(function() {
+        localStorage.setItem("selectedMovieID", $(this).attr("id").replace("movie-", "")); // сохраняем выбранный фильм для другой страницы
+        location.replace("/moviedetails.html"); // переходим на страницу
+    })
+}
+
+// доделать, не работает перезагрузка
+function registerPaginationEvents() { 
+    $(".page-template").click(function () { 
+        var id = $(this).attr('id').replace("page-", "");
+
+        window.history.replaceState("a", "Page", `/${id}`);
+        window.localStorage.setItem("currentMoviesListPage", parseInt(id));
+        show();
+     })
+}
+
+function countAvgRating(movie) {
+    return ((movie.reviews.length < 1) ? 0 : // если рецензий нет, вернуть 0 как среднюю оценку
+    movie.reviews.map((review) => { 
+        return review.rating 
+    })
+    .reduce((a, b) => {
+        return a + b
+    }, 0) / movie.reviews.length).toFixed(1);
 }
