@@ -1,10 +1,12 @@
-import { show } from "./moviescatalog/moviescatalog.js";
+import { showCatalogPage } from "./moviescatalog/moviescatalog_show.js";
 import { get } from "./requests.js"
 
 $(document).ready(function () {
-    var addable = ADDABLE_HTML["catalogpage"];
+    var url = window.location.pathname
+    var addable = ADDABLE_HTML[getContentKeyWord(url)];
+    console.log
 
-    $('.content').load(addable, show());
+    $('.content').load(addable.content, addable.show(url));
 
     get("https://react-midterm.kreosoft.space/api/account/profile", localStorage.getItem("userToken"))
     .then(profile => {
@@ -22,14 +24,23 @@ $(document).ready(function () {
 
 // необходим для определения, что вставить в блок контента
 const ADDABLE_HTML = {
-    "catalogpage": "moviescatalog.html"
+    "catalogpage": {
+        content: "moviescatalog.html",
+        show: (url) => {
+            localStorage.setItem(
+                "currentMoviesListPage", 
+                url.match(/([1-9][0-9]*)/g)[0]
+            );
+            showCatalogPage()
+        }
+    }
 };
 
 // через регулярки определяем, какая у нас страница -> определяем ключевое слово контента
 var getContentKeyWord = (path) => {
     switch(true) {
         case !path.length:
-        case /[1-9][0-9]*/.test(path): 
+        case /\/([1-9][0-9]*)*/.test(path): 
             return "catalogpage"; // страница каталога фильмов
     }
 }

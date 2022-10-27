@@ -1,13 +1,9 @@
 import {get} from "./../requests.js"
 
-export function show(){
-    var page = localStorage.getItem("currentMoviesListPage");
-    page = page ? page : 1
-
+export function fillCatalog(page){
     get(`https://react-midterm.kreosoft.space/api/movies/${page}`)
     .then(res => {
         $("#movies").empty()
-        console.log($(".movie-template"))
         var $template = $(".movie-template");
         for (var movie of res.movies) {
             var $movieCard = $template.clone(true, true);
@@ -24,21 +20,7 @@ export function show(){
             $("#movies").append($movieCard);
         }
 
-        $(".pagination").empty();
-        var $template = $(".page-template");
-        for (var i = 1; i <= res.pageInfo.pageCount; i++) {
-            var $page = $template.clone();
-            $page.removeClass('d-none');
-            $page.attr("id", `page-${i}`);
-            $page.find('.page-link').text(`${i}`);
-
-            if (i == page) $page.addClass("active");
-
-            $(".pagination").append($page);
-        }
-
         registerPressMovieEvents();
-        registerPaginationEvents();
     }).catch(error => console.log(error));
 
 }
@@ -48,17 +30,6 @@ function registerPressMovieEvents() {
         localStorage.setItem("selectedMovieID", $(this).attr("id").replace("movie-", "")); // сохраняем выбранный фильм для другой страницы
         location.replace("/moviedetails.html"); // переходим на страницу
     })
-}
-
-// доделать, не работает перезагрузка
-function registerPaginationEvents() { 
-    $(".page-template").click(function () { 
-        var id = $(this).attr('id').replace("page-", "");
-
-        window.history.replaceState("a", "Page", `/${id}`);
-        window.localStorage.setItem("currentMoviesListPage", parseInt(id));
-        show();
-     })
 }
 
 function countAvgRating(movie) {
