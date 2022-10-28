@@ -8,6 +8,7 @@ export function registerRegisterFieldsEvent() {
 
 export function areFieldsValid() {
     const mailformat = /^\w+([.-]?\w+)*@\w+([.-]?w+)*(.\w{2,3})+$/;
+    var isInvalid = true;
 
     var isValid = true;
 
