@@ -40,16 +40,3 @@ export function del(url) {
         })
     })
 }
-
-export function login(username, passwd) {
-    post("https://react-midterm.kreosoft.space/api/account/login", {
-        "username": username,
-        "password": passwd
-    })
-    .then(response => {
-        return response.json();
-    })
-    .then(user => {
-        localStorage.setItem("userToken", user.token)
-    });
-}

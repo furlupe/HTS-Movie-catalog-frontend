@@ -1,10 +1,7 @@
-import {login} from "./../requests.js"
+import { setLoginButtonEvent } from "./login_request.js";
+import { registerLoginFieldsEvent } from "./login_fields_validation.js";
 
-export function setLoginButtonEvent() {
-    $(".btnlogin").click(() => {
-        login(
-            $("#loginfield").val(),
-            $("#password").val()
-        )
-    });
+export function showLogin(id) {
+    setLoginButtonEvent();
+    registerLoginFieldsEvent();
 }

@@ -1,6 +1,6 @@
 <link rel="stylesheet" href="/styles/loginpagestyle.css">
 <div class="container-fluid">
-    <div class="border rounded bg-white" id="login-form">
+    <form class="border rounded bg-white valid" id="login-form">
         <div class="form-group">
             <label for="loginfield" class="form-label boldText">Логин</label>
             <input type="text" class="form-control" id="loginfield">
@@ -9,7 +9,10 @@
             <label for="password" class="form-label boldText">Пароль</label>
             <input type="text" class="form-control" id="password">
         </div>
-        <button type="button" class="btn btn-primary btnlogin">Войти</button>
+        <div class="border border-danger rounded text-danger" id="error">
+            Неправильно введен логин или пароль
+        </div>
+        <button class="btn btn-primary btnlogin">Войти</button>
         <button type="button" class="btn btn-secondary">Зарегистрироваться</button>
-    </div>
+    </form>
 </div> 

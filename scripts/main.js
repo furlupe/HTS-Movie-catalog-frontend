@@ -1,14 +1,7 @@
-import {setLoginButtonEvent} from "./login/login.js"
+import {showLogin} from "./login/login.js"
 import {get} from "./requests.js"
 
 $(document).ready(function () {
-    var keyword = "loginpage";
-    var addable = ADDABLE_HTML[keyword];
-    
-    $('.content').load(addable, 
-        () => setLoginButtonEvent()
-    );
-
     get("https://react-midterm.kreosoft.space/api/account/profile", localStorage.getItem("userToken"))
     .then(profile => {
         $("#navbar").removeClass("user-unauthorized");
@@ -19,18 +12,33 @@ $(document).ready(function () {
     .catch(() => {
         $("#navbar").removeClass("user-logged-in");
         $("#navbar").addClass("user-unauthorized");
+    })
+    .then(() => {
+        var page = getContent(location.pathname);
+        var addable = ADDABLE_HTML[page.keyword];
+        $('.content').load(addable.content, () => addable.show(page.param));
     });
 });
 
 // необходим для определения, что вставить в блок контента
 const ADDABLE_HTML = {
     "catalogpage": "moviescatalog.html",
-    "loginpage": "login.html"
+    "loginpage": {
+        content: "/login.html",
+        show: (id) => {
+            showLogin(id);
+        }
+    }
 };
 
 // через регулярки определяем, какая у нас страница -> определяем ключевое слово контента
-var getContentKeyWord = (path) => {
+var getContent = (path) => {
     switch(true) {
+        case /^\/login\/$/.test(path):
+            return {
+                keyword: "loginpage",
+                param: null
+            }
         case !path.length:
         case /[1-9][0-9]*/.test(path): 
             return "catalogpage"; // страница каталога фильмов
