@@ -2,11 +2,10 @@ import { showCatalogPage } from "./moviescatalog/showcatalog.js";
 import { get } from "./requests.js"
 
 $(document).ready(function () {
-    var url = window.location.pathname
-    var addable = ADDABLE_HTML[getContentKeyWord(url)];
-    console.log
+    var page = getContent(window.location.pathname);
+    var addable = ADDABLE_HTML[page.keyword];
 
-    $('.content').load(addable.content, addable.show(url));
+    $('.content').load(addable.content, addable.show(page.param));
 
     get("https://react-midterm.kreosoft.space/api/account/profile", localStorage.getItem("userToken"))
     .then(profile => {
@@ -26,20 +25,20 @@ $(document).ready(function () {
 const ADDABLE_HTML = {
     "catalogpage": {
         content: "moviescatalog.html",
-        show: (url) => {
-            showCatalogPage(
-                url.length > 1 ?
-                url.match(/([1-9][0-9]*)/g)[0] : 1
-            );
+        show: (page) => {
+            showCatalogPage(page);
         }
     }
 };
 
-// через регулярки определяем, какая у нас страница -> определяем ключевое слово контента
-var getContentKeyWord = (path) => {
+// через регулярки определяем, какая у нас страница -> определяем ключевое слово контента и необходимые доп. параметры для него
+var getContent = (path) => {
     switch(true) {
         case !path.length:
         case /\/([1-9][0-9]*)*/.test(path): 
-            return "catalogpage"; // страница каталога фильмов
+            return { // страница каталога фильмов
+                keyword: "catalogpage",
+                param: path.length > 1 ? path.match(/([1-9][0-9]*)/g)[0] : 1
+            };
     }
 }

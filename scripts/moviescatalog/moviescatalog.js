@@ -27,8 +27,7 @@ export function fillCatalog(page){
 
 function registerPressMovieEvents() {
     $(".movie-template").click(function() {
-        localStorage.setItem("selectedMovieID", $(this).attr("movie-id")); // сохраняем выбранный фильм для другой страницы
-        location.replace("/moviedetails.html"); // переходим на страницу
+        location.replace(`/movie/${$(this).attr("movie-id")}`); // переходим на страницу
     })
 }
 
