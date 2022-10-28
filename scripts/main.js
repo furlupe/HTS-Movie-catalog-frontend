@@ -37,6 +37,7 @@ const ADDABLE_HTML = {
         show: (page) => {
             showCatalogPage(page);
         }},
+
     "detailspage": {
         content: "/moviedetails.html",
         show: (identificators) => {
@@ -45,6 +46,7 @@ const ADDABLE_HTML = {
                 identificators.movieId
             );
         }},
+
     "loginpage": {
         content: "/login.html",
         show: (id) => {
@@ -61,6 +63,7 @@ var getContent = (path) => {
                 keyword: "loginpage",
                 param: null
             }
+
         case /^\/movie\/.+/.test(path):
             return {
                 keyword: "detailspage",
@@ -69,6 +72,7 @@ var getContent = (path) => {
                     movieId: path.length > 1 ? path.match(/^\/movie\/(.+)/)[1] : 1
                 }
             };
+            
         case !path.length:
         case /^\/([1-9][0-9]*)*/.test(path): 
             return { // страница каталога фильмов
