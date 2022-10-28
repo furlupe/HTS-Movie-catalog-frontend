@@ -1,0 +1,74 @@
+#maincontainer {
+    margin: 20px 125px 20px 125px;
+    padding: 20px 20px 20px 20px;
+}
+
+#add-to-favorites, #remove-from-favorites {
+    transition: color 0.2s, background-color 0.2s;
+}
+
+#add-to-favorites:hover {
+    background-color: #0D85FE;
+    color: white!important;
+}
+
+#remove-from-favorites:hover {
+    background-color: #DC3545;
+    color: white!important;
+}
+
+#reviews {
+    margin-top: 20px;
+}
+
+.detail {
+    text-align: right!important;
+}
+
+.review-label {
+    margin-bottom: 10px;
+}
+
+.form-group {
+    margin-bottom: 15px!important;
+}
+
+.form-label {
+    margin-bottom: 5px!important;
+}
+
+.card {
+    margin-bottom: 15px;
+}
+
+.user-review {
+    margin-top: 20px;
+}
+
+.new-review
+    .edit-review-h,
+.new-review
+    .edit-review-button,
+.new-review
+    .cancel-edit-review-button,
+.edit-review
+    .add-review-h,
+.edit-review
+    .save-review-button
+{
+    display: none;
+}
+
+.edit-review
+    .edit-review-h,
+.edit-review
+    .edit-review-button,
+.edit-review
+    .cancel-edit-review-button,
+.new-review
+    .add-review-h,
+.new-review
+    .save-review-button
+{
+    display: inline;
+}

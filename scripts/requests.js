@@ -1,4 +1,4 @@
-export function post(url, body) {
+export function post(url, body = {}) {
     return fetch(url, {
         method: 'POST',
         body: JSON.stringify(body),
@@ -49,7 +49,10 @@ export function login(username, passwd) {
     .then(response => {
         return response.json();
     })
+    .catch(res => {
+        console.log(res);
+    })
     .then(user => {
-        localStorage.setItem("userToken", user.token)
+        localStorage.setItem("userToken", user.token);
     });
 }
