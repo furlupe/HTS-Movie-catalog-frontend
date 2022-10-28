@@ -1,4 +1,4 @@
-import { get } from "./../requests.js";
+import { get, post, del } from "./../requests.js";
 
 
 export function initFavButton(movieId) {
