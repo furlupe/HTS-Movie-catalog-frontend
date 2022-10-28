@@ -2,10 +2,6 @@ import { showDetailsPage } from "./moviedetails/show_details_reviews.js";
 import { get } from "./requests.js";
 
 $(document).ready(function () {
-    var addable = ADDABLE_HTML["detailspage"];
-
-    $('.content').load(addable, showDetailsPage());
-
     get("https://react-midterm.kreosoft.space/api/account/profile")
     .then(profile => {
         $("#navbar").removeClass("user-unauthorized");
@@ -22,22 +18,49 @@ $(document).ready(function () {
         $("#navbar").find("#nickname").text("");
 
         localStorage.setItem("userId", "");
+    })
+    .then(() => {
+        var page = getContent(location.pathname);
+        var addable = ADDABLE_HTML[page.keyword];
+        $('.content').load(addable.content, addable.show(page.param));
     });
 });
 
 // необходим для определения, что вставить в блок контента
 const ADDABLE_HTML = {
-    "catalogpage": "moviescatalog.html",
-    "detailspage": "moviedetails.html"
+    "catalogpage": {
+        content: "/moviescatalog.html",
+        show: (page) => {
+            showCatalogPage(page);
+        }},
+    "detailspage": {
+        content: "/moviedetails.html",
+        show: (identificators) => {
+            showDetailsPage(
+                identificators.userId, 
+                identificators.movieId
+            );
+        }}
 };
 
+
 // через регулярки определяем, какая у нас страница -> определяем ключевое слово контента
-var getContentKeyWord = (path) => {
+var getContent = (path) => {
     switch(true) {
+        case /^\/movie\/.+/.test(path):
+            return {
+                keyword: "detailspage",
+                param: {
+                    userId: localStorage.getItem("userId"),
+                    movieId: path.length > 1 ? path.match(/^\/movie\/(.+)/)[1] : 1
+                }
+            };
+
         case !path.length:
-        case /^[1-9][0-9]*$/.test(path): 
-            return "catalogpage"; // страница каталога фильмов
-        case /^movie\/.+$/.test(path):
-            return "detailspage";
+        case /^\/([1-9][0-9]*)*/.test(path): 
+            return { // страница каталога фильмов
+                keyword: "catalogpage",
+                param: path.length > 1 ? path.match(/([1-9][0-9]*)/g)[0] : 1
+            };
     }
 }

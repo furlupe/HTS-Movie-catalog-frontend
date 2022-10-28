@@ -1,11 +1,11 @@
 import { put, del } from "./../requests.js";
 
 // обернуто в промис, чтобы позже в show_details_reviews.js отрисовывать форму для отзыва
-export function showReviews(reviews) {
+export function showReviews(movieId, userId, reviews) {
     return new Promise((resolve) => {
-
         var $template = $(".review-template");
-        var userMadeReview = false;
+
+        var userReviewId = null;
         for(var review of reviews) {
             var $r = $template.clone();
             $r.removeClass("d-none");
@@ -27,27 +27,23 @@ export function showReviews(reviews) {
             $r.find(".review-text").text(review.reviewText)
             .addClass(`text-${color}`);
             
-            if (localStorage.getItem("userId") != review.author.userId) {
+            if (userId != review.author.userId) {
                 $(".reviews-container").append($r);
                 continue;
             }
 
             $r.find(".card-footer").removeClass( "d-none");
 
-            localStorage.setItem("userReviewId", review.id)
-            userMadeReview = true;
+            userReviewId = review.id;
 
             $('.reviews-container').prepend($r);
         }
-        registerReviewEvents();
-        resolve(userMadeReview);
+        registerReviewEvents(movieId, userReviewId);
+        resolve(userReviewId);
     })
 }
 
-function registerReviewEvents() {
-    var movieId = localStorage.getItem("selectedMovieId");
-    var id = localStorage.getItem("userReviewId")
-
+function registerReviewEvents(movieId, id) {
     $(".modify-user-review").click(function() {
         var $parent = $(this).parent().parent();
         console.log($parent.find(".review-rating").val())
