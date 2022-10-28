@@ -2,7 +2,7 @@ import { showLogin } from "./login/login.js"
 import { showDetailsPage } from "./moviedetails/show_details_reviews.js";
 import { showCatalogPage } from "./moviescatalog/showcatalog.js";
 import { showRegistartion } from "./registration/registration.js";
-import { get } from "./requests.js";
+import { get, post } from "./requests.js";
 
 $(document).ready(function () {
     get("https://react-midterm.kreosoft.space/api/account/profile")
@@ -11,6 +11,14 @@ $(document).ready(function () {
         $("#navbar").addClass("user-logged-in");
 
         $("#navbar").find("#nickname").text(profile.nickName);
+
+        $("#signout").click(() => {
+            post("https://react-midterm.kreosoft.space/api/account/logout")
+            .then(() => {
+                localStorage.setItem("userToken", "");
+                location.reload()
+            });
+        })
 
         localStorage.setItem("userId", profile.id);
     })
@@ -66,7 +74,7 @@ var getContent = (path) => {
                 keyword: "registrationpage",
                 param: null
             };
-            
+
         case /^\/login\/$/.test(path):
             return {
                 keyword: "loginpage",
