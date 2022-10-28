@@ -1,12 +1,12 @@
-import {showLogin} from "./login/login.js"
+import { showLogin } from "./login/login.js"
 import { showDetailsPage } from "./moviedetails/show_details_reviews.js";
 import { showCatalogPage } from "./moviescatalog/showcatalog.js";
+import { showRegistartion } from "./registration/registration.js";
 import { get } from "./requests.js";
 
 $(document).ready(function () {
     get("https://react-midterm.kreosoft.space/api/account/profile")
     .then(profile => {
-        console.log(profile);
         $("#navbar").removeClass("user-unauthorized");
         $("#navbar").addClass("user-logged-in");
 
@@ -34,9 +34,8 @@ $(document).ready(function () {
 const ADDABLE_HTML = {
     "catalogpage": {
         content: "/moviescatalog.html",
-        show: (page) => {
-            showCatalogPage(page);
-        }},
+        show: (page) => showCatalogPage(page)
+    },
 
     "detailspage": {
         content: "/moviedetails.html",
@@ -49,15 +48,25 @@ const ADDABLE_HTML = {
 
     "loginpage": {
         content: "/login.html",
-        show: (id) => {
-            showLogin(id);
-        }}
+        show: (id) => showLogin(id)
+    },
+
+    "registrationpage": {
+        content: "/registrationform.html",
+        show: (p) => showRegistartion()
+    }
 };
 
 
 // через регулярки определяем, какая у нас страница -> определяем ключевое слово контента
 var getContent = (path) => {
     switch(true) {
+        case /^\/registration\/$/.test(path):
+            return { 
+                keyword: "registrationpage",
+                param: null
+            };
+            
         case /^\/login\/$/.test(path):
             return {
                 keyword: "loginpage",
@@ -72,7 +81,7 @@ var getContent = (path) => {
                     movieId: path.length > 1 ? path.match(/^\/movie\/(.+)/)[1] : 1
                 }
             };
-            
+
         case !path.length:
         case /^\/([1-9][0-9]*)*/.test(path): 
             return { // страница каталога фильмов
