@@ -1,4 +1,5 @@
 import { showDetailsPage } from "./moviedetails/show_details_reviews.js";
+import { showCatalogPage } from "./moviescatalog/showcatalog.js";
 import { get } from "./requests.js";
 
 $(document).ready(function () {
