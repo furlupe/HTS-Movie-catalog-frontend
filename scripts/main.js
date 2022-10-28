@@ -1,18 +1,7 @@
-import { registerRegisterButtonEvent } from "./registration/registration.js";
-import { registerRegisterFieldsEvent } from "./registration/registration_fields.js";
+import { showRegistartion } from "./registration/registration.js";
 import { get } from "./requests.js";
 
 $(document).ready(function () {
-    var keyword = "registrationpage";
-    var addable = ADDABLE_HTML[keyword];
-
-    $(".content").load(addable, 
-        () => {
-            registerRegisterButtonEvent();
-            registerRegisterFieldsEvent();
-        }
-    );
-
     get("https://react-midterm.kreosoft.space/api/account/profile", localStorage.getItem("userToken"))
     .then(profile => {
         $("#navbar").removeClass("user-unauthorized");
@@ -23,18 +12,31 @@ $(document).ready(function () {
     .catch(() => {
         $("#navbar").removeClass("user-logged-in");
         $("#navbar").addClass("user-unauthorized");
+    })
+    .then(() => {
+        var page = getContent(location.pathname);
+        var addable = ADDABLE_HTML[page.keyword];
+        $(".content").load(addable.content, () => addable.show(page.param));
     });
 });
 
 // необходим для определения, что вставить в блок контента
 const ADDABLE_HTML = {
     "catalogpage": "moviescatalog.html",
-    "registrationpage": "registrationform.html"
+    "registrationpage": {
+        content: "/registrationform.html",
+        show: (p) => showRegistartion()
+    }
 };
 
 // через регулярки определяем, какая у нас страница -> определяем ключевое слово контента
-var getContentKeyWord = (path) => {
+var getContent = (path) => {
     switch(true) {
+        case /^\/registration\/$/.test(path):
+            return { 
+                keyword: "registrationpage",
+                param: null
+            };
         case !path.length:
         case /[1-9][0-9]*/.test(path): 
             return "catalogpage"; // страница каталога фильмов
