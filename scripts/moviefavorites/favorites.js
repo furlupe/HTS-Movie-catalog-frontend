@@ -37,7 +37,7 @@ function registerDeleteButtonEvents () {
     $(".remove-from-favorites").click(function() {
         del(`https://react-midterm.kreosoft.space/api/favorites/${$(this).data("movie")}/delete`)
         .then(() => {
-            $(this).parent().attr("disabled", "disabled");
+            showFavorites();
         });
     });
 }
