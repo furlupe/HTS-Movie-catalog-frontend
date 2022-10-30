@@ -27,6 +27,7 @@ button {
 
 #avatar-container {
     position: relative;
+    transition: background-color 0.2s;
 }
 
 #img-overlay {
@@ -36,19 +37,25 @@ button {
     top: 0;
     bottom: 0;
     opacity: 0;
+    transition: opacity 0.2s;
 }
 
 #pfp {
-    transition: .2s ease;
-}
-
-#avatar-container:hover #img-overlay {
-    opacity: 1;
+    transition: opacity 0.2s;
 }
 
 #avatar-container:hover #pfp {
-    opacity: 0.33;
+    opacity: 0.2;
 }
+
+#avatar-container:hover {
+    background-color: black;
+}
+
+#avatar-container:hover #img-overlay{
+    opacity: 1;
+}
+
 
 h1 {
     margin-bottom: 20px;
