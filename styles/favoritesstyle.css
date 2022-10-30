@@ -3,7 +3,17 @@
 }
 
 .no-favorites {
-    margin: 200px 125px 20px 125px;
+    margin: 75px 125px 0px 125px;
+}
+
+.no-favorites img {
+    width: 200px;
+    height: 200px;
+}
+
+.no-favorites h1 {
+    text-align: center;
+    margin-top: 50px;
 }
 
 .movie-rating {
@@ -35,8 +45,4 @@
 
 .remove-from-favorites:active {
     transform: scale(0.97, 0.97);
-}
-
-.no-favorites h1 {
-    text-align: center;
 }
