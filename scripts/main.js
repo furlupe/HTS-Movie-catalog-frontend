@@ -1,3 +1,4 @@
+import { showFavorites } from "./moviefavorites/favorites.js";
 import { showLogin } from "./login/login.js"
 import { showDetailsPage } from "./moviedetails/show_details_reviews.js";
 import { showCatalogPage } from "./moviescatalog/showcatalog.js";
@@ -62,6 +63,11 @@ const ADDABLE_HTML = {
     "registrationpage": {
         content: "/registrationform.html",
         show: (p) => showRegistartion()
+    },
+
+    "favoritespage": {
+        content: "/favorites.html",
+        show: (p) => showFavorites()
     }
 };
 
@@ -69,6 +75,12 @@ const ADDABLE_HTML = {
 // через регулярки определяем, какая у нас страница -> определяем ключевое слово контента
 var getContent = (path) => {
     switch(true) {
+        case /^\/favorites\/$/.test(path):
+            return {
+                keyword: "favoritespage",
+                param: null
+            }
+
         case /^\/registration\/$/.test(path):
             return { 
                 keyword: "registrationpage",
