@@ -8,6 +8,7 @@ label {
 
 #profile {
     margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 button {
@@ -28,6 +29,7 @@ button {
 #avatar-container {
     position: relative;
     transition: background-color 0.2s;
+    cursor: pointer;
 }
 
 #img-overlay {
