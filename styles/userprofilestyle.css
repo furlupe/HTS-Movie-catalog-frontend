@@ -20,9 +20,34 @@ button {
 }
 
 #avatar-image {
-    margin-top: 20px;
     width: 400px;
     height: 400px;
+    margin-top: 20px;
+}
+
+#avatar-container {
+    position: relative;
+}
+
+#img-overlay {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    opacity: 0;
+}
+
+#pfp {
+    transition: .2s ease;
+}
+
+#avatar-container:hover #img-overlay {
+    opacity: 1;
+}
+
+#avatar-container:hover #pfp {
+    opacity: 0.33;
 }
 
 h1 {

@@ -5,7 +5,7 @@ import { registerFieldEvents } from "./userprofile_field_events.js";
 export function showProfile() {
     get("https://react-midterm.kreosoft.space/api/account/profile")
     .then(profile => {
-        $("#avatar-image img").attr("src", profile.avatarLink ?
+        $("#avatar-image #pfp").attr("src", profile.avatarLink ?
             profile.avatarLink : "/assets/images/no_avatar.png"
         );
         $("#profilenickname").text(profile.nickName);
