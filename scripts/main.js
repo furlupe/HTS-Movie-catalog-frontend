@@ -1,3 +1,4 @@
+import { showProfile } from "./userprofilepage/userprofile.js";
 import { showFavorites } from "./moviefavorites/favorites.js";
 import { showLogin } from "./login/login.js"
 import { showDetailsPage } from "./moviedetails/show_details_reviews.js";
@@ -41,6 +42,11 @@ $(document).ready(function () {
 
 // необходим для определения, что вставить в блок контента
 const ADDABLE_HTML = {
+    "userprofilepage": {
+        content: "/userprofile.html",
+        show: (p) => showProfile()
+    },
+
     "catalogpage": {
         content: "/moviescatalog.html",
         show: (page) => showCatalogPage(page)
@@ -75,6 +81,12 @@ const ADDABLE_HTML = {
 // через регулярки определяем, какая у нас страница -> определяем ключевое слово контента
 var getContent = (path) => {
     switch(true) {
+        case /^\/profile\/$/.test(path):
+            return {
+                keyword: "userprofilepage",
+                param: null
+            }
+            
         case /^\/favorites\/$/.test(path):
             return {
                 keyword: "favoritespage",
