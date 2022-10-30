@@ -14,9 +14,13 @@ export function showReviews(movieId, userId, reviews) {
             var color = (review.rating > 5) ? "success" : "danger";
 
             $r.addClass(`border-${color}`);
-
-            $r.find(".user-avatar").attr("src", (review.isAnonymous) ? 
-                "" : (avatar ? avatar : "" ));
+            
+            if (!review.isAnonymous) {
+                $r.find(".user-avatar").attr("src", avatar ? 
+                    avatar :
+                    $r.find(".user-avatar").attr("src")
+                );
+            }
 
             $r.find(".user-name").text((review.isAnonymous) ? "Аноним" : review.author.nickName);
             $r.find(".review-date").text((new Date(review.createDateTime)).toLocaleDateString());
