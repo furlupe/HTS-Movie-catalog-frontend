@@ -2,15 +2,8 @@ import { showFavorites } from "./moviefavorites/favorites.js";
 import { get } from "./requests.js";
 
 $(document).ready(function () {
-    var keyword = 'favoritespage';
-
-    var addable = ADDABLE_HTML[keyword];
-
-    $(".content").load(addable, showFavorites());
-
     get("https://react-midterm.kreosoft.space/api/account/profile", localStorage.getItem("userToken"))
     .then(profile => {
-        console.log(profile);
         $("#navbar").removeClass("user-unauthorized");
         $("#navbar").addClass("user-logged-in");
 
@@ -19,20 +12,36 @@ $(document).ready(function () {
     .catch(() => {
         $("#navbar").removeClass("user-logged-in");
         $("#navbar").addClass("user-unauthorized");
+    })
+    .then(() => {
+        var page = getContent(location.pathname);
+        var addable = ADDABLE_HTML[page.keyword];
+        $('.content').load(addable.content, () => addable.show(page.param));
     });
 });
 
 // необходим для определения, что вставить в блок контента
 const ADDABLE_HTML = {
-    "catalogpage": "moviescatalog.html",
-    "favoritespage": "favorites.html"
+    "favoritespage": {
+        content: "/favorites.html",
+        show: (p) => showFavorites()
+    }
 };
 
 // через регулярки определяем, какая у нас страница -> определяем ключевое слово контента
-var getContentKeyWord = (path) => {
+var getContent = (path) => {
     switch(true) {
+        case /^\/favorites\/$/.test(path):
+            return {
+                keyword: "favoritespage",
+                param: null
+            }
+
         case !path.length:
-        case /[1-9][0-9]*/.test(path): 
-            return "catalogpage"; // страница каталога фильмов
+        case /^\/([1-9][0-9]*)*/.test(path): 
+            return { // страница каталога фильмов
+                keyword: "catalogpage",
+                param: path.length > 1 ? path.match(/([1-9][0-9]*)/g)[0] : 1
+            };     
     }
 }
