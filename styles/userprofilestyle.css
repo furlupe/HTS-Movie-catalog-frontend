@@ -20,7 +20,9 @@ label {
 }
 
 #avatar-image {
-    margin-top: 15px;
+    margin-top: 20px;
+    width: 400px;
+    height: 400px;
 }
 
 h1 {
