@@ -10,7 +10,7 @@ label {
     margin-top: 20px;
 }
 
-#edit {
+button {
     margin-bottom: 20px;
 }
 
@@ -27,4 +27,29 @@ label {
 
 h1 {
     margin-bottom: 20px;
+}
+
+.readonly #save, .editable #edit{
+    display: none;
+}
+
+
+.editable #save, .readonly #edit{
+    display: inline;
+}
+
+.valid small {
+    display: none;
+}
+
+.valid input {
+    border-color: #CED4DA;
+}
+
+.invalid small {
+    display: inline;
+}
+
+.invalid input {
+    border-color: #DF4759;
 }
