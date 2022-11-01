@@ -7,6 +7,11 @@ export function post(url, body) {
             'Content-Type': 'application/json'
         })
     })
+    .then(r => {
+        if(r.status == 401) logout();
+        else return r;
+    });
+
 }
 
 export function get(url) {
@@ -29,6 +34,10 @@ export function put(url, body) {
             'Content-Type': 'application/json'
         })
     })
+    .then(r => {
+        if(r.status == 401) logout();
+        else return r;
+    });
 }
 
 export function del(url) {
@@ -39,4 +48,16 @@ export function del(url) {
             'Content-Type': 'application/json'
         })
     })
+    .then(r => {
+        if(r.status == 401) logout();
+        else return r;
+    });
+}
+
+function logout() {
+    post("https://react-midterm.kreosoft.space/api/account/logout", {})
+    .then(() => {
+        localStorage.setItem("userToken", "");
+        location.replace("/login/");
+    });
 }
