@@ -3,8 +3,12 @@
     padding: 20px 20px 20px 20px;
 }
 
-#add-to-favorites, #remove-from-favorites {
+.btn {
     transition: color 0.2s, background-color 0.2s;
+}
+
+.btn:active {
+    transform: scale(0.97, 0.97);
 }
 
 #add-to-favorites:hover {
