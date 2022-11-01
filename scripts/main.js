@@ -7,6 +7,7 @@ import { showRegistartion } from "./registration/registration.js";
 import { get, post } from "./requests.js";
 
 $(document).ready(function () {
+    var userLoggedIn = false;
     get("https://react-midterm.kreosoft.space/api/account/profile")
     .then(profile => {
         $("#navbar").removeClass("user-unauthorized");
@@ -23,6 +24,7 @@ $(document).ready(function () {
         })
 
         localStorage.setItem("userId", profile.id);
+        userLoggedIn = true;
     })
     .catch(() => {
         $("#navbar").removeClass("user-logged-in");
@@ -34,6 +36,10 @@ $(document).ready(function () {
     })
     .then(() => {
         var page = getContent(location.pathname);
+
+        if (page.auth && !userLoggedIn) location.replace("/login/");
+        if (page.auth === false && userLoggedIn) location.replace("/");
+
         var addable = ADDABLE_HTML[page.keyword];
         $('.content').load(addable.content, () => addable.show(page.param));
     });
@@ -79,30 +85,38 @@ const ADDABLE_HTML = {
 
 
 // через регулярки определяем, какая у нас страница -> определяем ключевое слово контента
+// keyword - самое кл. слово, через которое мы получаем контент в словаре ADDABLE_HTML и функцию показа оного
+// param - доп. параметры для функции показа
+// auth - отображает требование быть залогиненным. Если установлено true - значит на данную страницу может пройти ТОЛЬКО залогиненный пользователь,
+// false - ТОЛЬКО разлогиненный, null - не имеет значения
 var getContent = (path) => {
     switch(true) {
         case /^\/profile\/$/.test(path):
             return {
                 keyword: "userprofilepage",
-                param: null
+                param: null,
+                auth: true
             }
             
         case /^\/favorites\/$/.test(path):
             return {
                 keyword: "favoritespage",
-                param: null
+                param: null,
+                auth: true
             }
 
         case /^\/registration\/$/.test(path):
             return { 
                 keyword: "registrationpage",
-                param: null
+                param: null,
+                auth: false
             };
 
         case /^\/login\/$/.test(path):
             return {
                 keyword: "loginpage",
-                param: null
+                param: null,
+                auth: false
             }
 
         case /^\/movie\/.+/.test(path):
@@ -111,14 +125,16 @@ var getContent = (path) => {
                 param: {
                     userId: localStorage.getItem("userId"),
                     movieId: path.length > 1 ? path.match(/^\/movie\/(.+)/)[1] : 1
-                }
+                },
+                auth: null
             };
 
         case !path.length:
         case /^\/([1-9][0-9]*)*/.test(path): 
             return { // страница каталога фильмов
                 keyword: "catalogpage",
-                param: path.length > 1 ? path.match(/([1-9][0-9]*)/g)[0] : 1
+                param: path.length > 1 ? path.match(/([1-9][0-9]*)/g)[0] : 1,
+                auth: null
             };
     }
 }
