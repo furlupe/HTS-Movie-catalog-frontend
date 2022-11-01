@@ -63,12 +63,12 @@ h1 {
     margin-bottom: 20px;
 }
 
-.readonly #save, .editable #edit{
+.readonly #save, .readonly #cancel, .editable #edit{
     display: none;
 }
 
 
-.editable #save, .readonly #edit{
+.editable #save, .editable #cancel, .readonly #edit{
     display: inline;
 }
 

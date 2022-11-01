@@ -1,5 +1,5 @@
 import { get } from "./../requests.js";
-import { registerEditButtonEvent, registerSaveButtonEvent } from "./userprofile_btn_events.js";
+import { initButtons } from "./userprofile_btn_events.js";
 import { registerFieldEvents } from "./userprofile_field_events.js";
 
 export function showProfile() {
@@ -16,9 +16,8 @@ export function showProfile() {
             (new Date(profile.birthDate)).toLocaleDateString('en-CA')
         );
         $("#sex").val(profile.gender).change();
-
-        registerEditButtonEvent();
-        registerSaveButtonEvent();
+        
+        initButtons();
         registerFieldEvents();
     });
 }

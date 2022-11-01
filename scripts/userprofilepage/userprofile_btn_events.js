@@ -1,6 +1,6 @@
 import { put } from "../requests.js";
 
-export function registerEditButtonEvent() {
+function registerEditButtonEvent() {
     $("#edit").click(() => {
         $(".form-group").each(function() {
             $(this).find("input").removeAttr("disabled");
@@ -11,7 +11,7 @@ export function registerEditButtonEvent() {
     })
 }
 
-export function registerSaveButtonEvent() {
+function registerSaveButtonEvent() {
     $("form").submit((e) => {
         e.preventDefault();
         put("https://react-midterm.kreosoft.space/api/account/profile", {
@@ -34,4 +34,14 @@ export function registerSaveButtonEvent() {
             }
         })
     });
+}
+
+function registerCancelButtonEvent() {
+    $("#cancel").click(() => location.reload());
+}
+
+export function initButtons() {
+    registerEditButtonEvent();
+    registerSaveButtonEvent();
+    registerCancelButtonEvent();
 }
