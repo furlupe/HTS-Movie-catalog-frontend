@@ -6,12 +6,25 @@ export function showPagination(page){
     get(URL_GET_PAGE(page))
     .then(res => {
         $(".pagination").empty();
-        var $template = $(".page-template");
-        for (var i = 1; i <= res.pageInfo.pageCount; i++) {
-            var $page = $template.clone();
+
+        let $template = $(".page-template");
+        let pcount = res.pageInfo.pageCount;
+        for (var i = 0; i <= pcount + 1; i++) {
+            let $page = $template.clone();
+            let value = i;
+
+            if (i == 0) {
+                $page = $(".page-prev").clone();
+                value = (page > 1) ? page - 1 : 1
+            }            
+            else if (i == pcount + 1) {
+                $page = $(".page-next").clone();
+                value = (page < pcount) ? page + 1 : pcount;
+            }
+            else $page.find('.page-link').text(i);
+
             $page.removeClass('d-none');
-            $page.attr("value", i);
-            $page.find('.page-link').text(i);
+            $page.attr("value", value);
 
             if (i == page) $page.addClass("active");
 
@@ -22,10 +35,9 @@ export function showPagination(page){
     }).catch(error => console.log(error));
 }
 
-// доделать, не работает перезагрузка
 function registerPaginationEvents() { 
-    $(".page-template").click(function () { 
-        var id = parseInt($(this).attr('value'));
+    $(".page-item").click(function () { 
+        let id = parseInt($(this).attr('value'));
 
         history.replaceState("a", "Page", `/${id}`);
         localStorage.setItem("currentMoviesListPage", id);
