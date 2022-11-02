@@ -1,7 +1,7 @@
 import { put } from "../requests.js";
 import { URL_EDIT_USER_PROFILE } from "../requests_consts.js";
 
-export function registerEditButtonEvent() {
+function registerEditButtonEvent() {
     $("#edit").click(() => {
         $(".form-group").each(function() {
             $(this).find("input").removeAttr("disabled");
@@ -12,7 +12,7 @@ export function registerEditButtonEvent() {
     })
 }
 
-export function registerSaveButtonEvent() {
+function registerSaveButtonEvent() {
     $("form").submit((e) => {
         e.preventDefault();
         put(URL_EDIT_USER_PROFILE, {
@@ -35,4 +35,14 @@ export function registerSaveButtonEvent() {
             }
         })
     });
+}
+
+function registerCancelButtonEvent() {
+    $("#cancel").click(() => location.reload());
+}
+
+export function initButtons() {
+    registerEditButtonEvent();
+    registerSaveButtonEvent();
+    registerCancelButtonEvent();
 }
