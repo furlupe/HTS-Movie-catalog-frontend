@@ -10,7 +10,7 @@ export function post(url, body) {
     .then(r => {
         if(r.status == 401) logout();
         else return r;
-    });
+    })
 
 }
 

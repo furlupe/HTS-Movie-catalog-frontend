@@ -3,6 +3,7 @@ export function registerRegisterFieldsEvent() {
         $(this).removeClass("border-danger");
         $(this).parent().addClass("valid");
         $(this).parent().removeClass("invalid");
+        $(this).parent().removeClass("invalid-login-taken");
     });
 }
 
