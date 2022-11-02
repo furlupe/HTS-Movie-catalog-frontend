@@ -92,6 +92,7 @@ const ADDABLE_HTML = {
 var getContent = (path) => {
     switch(true) {
         case /^\/profile\/$/.test(path):
+            $("#navbar").find("#profile").addClass("text-white");
             return {
                 keyword: "userprofilepage",
                 param: null,
@@ -99,6 +100,7 @@ var getContent = (path) => {
             }
             
         case /^\/favorites\/$/.test(path):
+            $("#navbar").find("#favorites").addClass("text-white");
             return {
                 keyword: "favoritespage",
                 param: null,
@@ -106,6 +108,7 @@ var getContent = (path) => {
             }
 
         case /^\/registration\/$/.test(path):
+            $("#navbar").find("#signup").addClass("text-white");
             return { 
                 keyword: "registrationpage",
                 param: null,
@@ -113,6 +116,7 @@ var getContent = (path) => {
             };
 
         case /^\/login\/$/.test(path):
+            $("#navbar").find("#login").addClass("text-white");
             return {
                 keyword: "loginpage",
                 param: null,
@@ -131,6 +135,7 @@ var getContent = (path) => {
 
         case !path.length:
         case /^\/([1-9][0-9]*)*/.test(path): 
+            $("#navbar").find("#films").addClass("text-white");
             return { // страница каталога фильмов
                 keyword: "catalogpage",
                 param: path.length > 1 ? path.match(/([1-9][0-9]*)/g)[0] : 1,
