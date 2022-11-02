@@ -1,3 +1,5 @@
+import { formatMoney } from "./../general_purpose_funcs.js";
+
 export function showMovieDetails(details) {
     $("#movie-poster").attr("src", getDetail(details.poster, "/assets/images/no_poster.png"));
     $("#movie-name").text(getDetail(details.name));
@@ -22,19 +24,4 @@ export function showMovieDetails(details) {
 
 var getDetail = (detail, showIfNull = "Неизвестно") => {
     return detail ? detail : showIfNull;
-}
-
-function formatMoney(money, currency = "$") {
-    if(!money) return "Неизвестно"
-
-    money = money.toString();
-    var head = `${currency}${
-        money.slice(0, (money.length % 3 > 0) ? money.length % 3 : 3)
-    }`;
-    
-    var body = ""
-    for(var i = head.length - 1; i < money.length; i += 3) {
-        body += ` ${money.slice(i, i + 3)}`;
-    }
-    return head + body;
 }

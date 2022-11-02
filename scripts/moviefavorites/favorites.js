@@ -1,7 +1,9 @@
 import { del, get } from "./../requests.js"
+import { countAvgRating } from "./../general_purpose_funcs.js";
+import { URL_GET_FAVORITES, URL_DELETE_FAVORITE } from "../requests_consts.js";
 
 export function showFavorites() {
-    get("https://react-midterm.kreosoft.space/api/favorites")
+    get(URL_GET_FAVORITES)
     .then(res => {
         $("#favoritemovies").empty();
 
@@ -35,19 +37,9 @@ export function showFavorites() {
 
 function registerDeleteButtonEvents () {
     $(".remove-from-favorites").click(function() {
-        del(`https://react-midterm.kreosoft.space/api/favorites/${$(this).data("movie")}/delete`)
+        del(URL_DELETE_FAVORITE($(this).data("movie")))
         .then(() => {
             showFavorites();
         });
     });
-}
-
-function countAvgRating(movie) {
-    return ((movie.reviews.length < 1) ? 0 : // если рецензий нет, вернуть 0 как среднюю оценку
-    movie.reviews.map((review) => { 
-        return review.rating 
-    })
-    .reduce((a, b) => {
-        return a + b
-    }, 0) / movie.reviews.length).toFixed(1);
 }

@@ -1,4 +1,5 @@
 import { put } from "../requests.js";
+import { URL_EDIT_USER_PROFILE } from "../requests_consts.js";
 
 export function registerEditButtonEvent() {
     $("#edit").click(() => {
@@ -14,7 +15,7 @@ export function registerEditButtonEvent() {
 export function registerSaveButtonEvent() {
     $("form").submit((e) => {
         e.preventDefault();
-        put("https://react-midterm.kreosoft.space/api/account/profile", {
+        put(URL_EDIT_USER_PROFILE, {
             id: localStorage.getItem("userId"),
             nickName: $("#profilenickname").text(),
             email: $("#email").val(),

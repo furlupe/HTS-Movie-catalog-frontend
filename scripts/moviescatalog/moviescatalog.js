@@ -1,7 +1,9 @@
 import {get} from "./../requests.js"
+import { countAvgRating } from "./../general_purpose_funcs.js";
+import { URL_GET_PAGE } from "../requests_consts.js";
 
 export function fillCatalog(page){
-    get(`https://react-midterm.kreosoft.space/api/movies/${page}`)
+    get(URL_GET_PAGE(page))
     .then(res => {
         $("#movies").empty()
         var $template = $(".movie-template");
@@ -29,14 +31,4 @@ function registerPressMovieEvents() {
     $(".movie-template").click(function() {
         location.replace(`/movie/${$(this).attr("movie-id")}`); // переходим на страницу
     })
-}
-
-function countAvgRating(movie) {
-    return ((movie.reviews.length < 1) ? 0 : // если рецензий нет, вернуть 0 как среднюю оценку
-    movie.reviews.map((review) => { 
-        return review.rating 
-    })
-    .reduce((a, b) => {
-        return a + b
-    }, 0) / movie.reviews.length).toFixed(1);
 }

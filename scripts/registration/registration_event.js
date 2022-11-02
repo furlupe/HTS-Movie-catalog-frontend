@@ -1,5 +1,6 @@
 import { post } from "../requests.js";
 import { areFieldsValid } from "./registration_fields.js";
+import { URL_REGISTER } from "../requests_consts.js";
 
 export function registerRegisterButtonEvent () {
     $("#dateofbirth").attr("max", (new Date()).toLocaleDateString('en-CA'));
@@ -9,7 +10,7 @@ export function registerRegisterButtonEvent () {
         e.preventDefault();
 
         if(!areFieldsValid()) return;
-        post("https://react-midterm.kreosoft.space/api/account/register", {
+        post(URL_REGISTER, {
             "userName": $("#loginfield").val(),
             "name": ($("#name").val() ? $("#name").val(): "-"),
             "password": $("#password").val(),

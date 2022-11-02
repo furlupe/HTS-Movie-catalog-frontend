@@ -1,8 +1,9 @@
 import { get } from "./../requests.js"
 import { fillCatalog } from "./moviescatalog.js";
+import { URL_GET_PAGE } from "../requests_consts.js";
 
 export function showPagination(page){
-    get(`https://react-midterm.kreosoft.space/api/movies/${page}`)
+    get(URL_GET_PAGE(page))
     .then(res => {
         $(".pagination").empty();
         var $template = $(".page-template");

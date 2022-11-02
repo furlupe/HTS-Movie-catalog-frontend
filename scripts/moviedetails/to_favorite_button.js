@@ -1,8 +1,8 @@
 import { get, post, del } from "./../requests.js";
-
+import { URL_GET_FAVORITES, URL_ADD_FAVORITE, URL_DELETE_FAVORITE} from "../requests_consts.js";
 
 export function initFavButton(movieId) {
-    get("https://react-midterm.kreosoft.space/api/favorites") // если текущий фильм лежит в списке избранного, меняем на кнопку "убрать из избранного"
+    get(URL_GET_FAVORITES) // если текущий фильм лежит в списке избранного, меняем на кнопку "убрать из избранного"
     .then(json => {
         for (var movie of json.movies) {
             if (movie.id != movieId) {
@@ -19,7 +19,7 @@ export function initFavButton(movieId) {
 
 function registerFavoritesEvents(movieId) {
     $("#add-to-favorites").click(() => {
-        post(`https://react-midterm.kreosoft.space/api/favorites/${movieId}/add`)
+        post(URL_ADD_FAVORITE(movieId))
         .then(() => {
             $("#add-to-favorites").addClass("d-none");
             $("#remove-from-favorites").removeClass("d-none");
@@ -28,7 +28,7 @@ function registerFavoritesEvents(movieId) {
     });
 
     $("#remove-from-favorites").click(() => {
-        del(`https://react-midterm.kreosoft.space/api/favorites/${movieId}/delete`)
+        del(URL_DELETE_FAVORITE(movieId))
         .then(() => {
             $("#add-to-favorites").removeClass("d-none");
             $("#remove-from-favorites").addClass("d-none");

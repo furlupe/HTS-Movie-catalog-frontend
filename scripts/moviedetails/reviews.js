@@ -1,4 +1,5 @@
 import { put, del } from "./../requests.js";
+import { URL_DELETE_REVIEW } from "../requests_consts.js";
 
 // обернуто в промис, чтобы позже в show_details_reviews.js отрисовывать форму для отзыва
 export function showReviews(movieId, userId, reviews) {
@@ -66,7 +67,7 @@ function registerReviewEvents(movieId, id) {
     });
 
     $(".delete-user-review").click(() => {
-        del(`https://react-midterm.kreosoft.space/api/movie/${movieId}/review/${id}/delete`)
+        del(URL_DELETE_REVIEW(movieId, id))
         .then(() => {
             console.log("removed");
             location.reload();

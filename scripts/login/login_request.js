@@ -1,9 +1,10 @@
 import { post } from "../requests.js"
+import { URL_LOGIN } from "../requests_consts.js";
 
 export function setLoginButtonEvent() {
     $("#login-form").submit((e) => {
         e.preventDefault();
-        post("https://react-midterm.kreosoft.space/api/account/login", {
+        post(URL_LOGIN, {
             "username": $("#loginfield").val(),
             "password": $("#password").val()
         })

@@ -5,10 +5,12 @@ import { showDetailsPage } from "./moviedetails/show_details_reviews.js";
 import { showCatalogPage } from "./moviescatalog/showcatalog.js";
 import { showRegistartion } from "./registration/registration.js";
 import { get, post } from "./requests.js";
+import { getContent } from "./get_content.js";
+import {URL_GET_USER_PROFILE, URL_LOGOUT} from "./requests_consts.js";
 
 $(document).ready(function () {
     var userLoggedIn = false;
-    get("https://react-midterm.kreosoft.space/api/account/profile")
+    get(URL_GET_USER_PROFILE)
     .then(profile => {
         $("#navbar").removeClass("user-unauthorized");
         $("#navbar").addClass("user-logged-in");
@@ -16,7 +18,7 @@ $(document).ready(function () {
         $("#navbar").find("#nickname").text(profile.nickName);
 
         $("#signout").click(() => {
-            post("https://react-midterm.kreosoft.space/api/account/logout")
+            post(URL_LOGOUT)
             .then(() => {
                 localStorage.setItem("userToken", "");
                 location.reload()
@@ -82,64 +84,3 @@ const ADDABLE_HTML = {
         show: (p) => showFavorites()
     }
 };
-
-
-// через регулярки определяем, какая у нас страница -> определяем ключевое слово контента
-// keyword - самое кл. слово, через которое мы получаем контент в словаре ADDABLE_HTML и функцию показа оного
-// param - доп. параметры для функции показа
-// auth - отображает требование быть залогиненным. Если установлено true - значит на данную страницу может пройти ТОЛЬКО залогиненный пользователь,
-// false - ТОЛЬКО разлогиненный, null - не имеет значения
-var getContent = (path) => {
-    switch(true) {
-        case /^\/profile\/$/.test(path):
-            $("#navbar").find("#profile").addClass("text-white");
-            return {
-                keyword: "userprofilepage",
-                param: null,
-                auth: true
-            }
-            
-        case /^\/favorites\/$/.test(path):
-            $("#navbar").find("#favorites").addClass("text-white");
-            return {
-                keyword: "favoritespage",
-                param: null,
-                auth: true
-            }
-
-        case /^\/registration\/$/.test(path):
-            $("#navbar").find("#signup").addClass("text-white");
-            return { 
-                keyword: "registrationpage",
-                param: null,
-                auth: false
-            };
-
-        case /^\/login\/$/.test(path):
-            $("#navbar").find("#login").addClass("text-white");
-            return {
-                keyword: "loginpage",
-                param: null,
-                auth: false
-            }
-
-        case /^\/movie\/.+/.test(path):
-            return {
-                keyword: "detailspage",
-                param: {
-                    userId: localStorage.getItem("userId"),
-                    movieId: path.length > 1 ? path.match(/^\/movie\/(.+)/)[1] : 1
-                },
-                auth: null
-            };
-
-        case !path.length:
-        case /^\/([1-9][0-9]*)*/.test(path): 
-            $("#navbar").find("#films").addClass("text-white");
-            return { // страница каталога фильмов
-                keyword: "catalogpage",
-                param: path.length > 1 ? path.match(/([1-9][0-9]*)/g)[0] : 1,
-                auth: null
-            };
-    }
-}

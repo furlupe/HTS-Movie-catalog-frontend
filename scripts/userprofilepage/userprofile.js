@@ -1,9 +1,10 @@
 import { get } from "./../requests.js";
 import { registerEditButtonEvent, registerSaveButtonEvent } from "./userprofile_btn_events.js";
 import { registerFieldEvents } from "./userprofile_field_events.js";
+import { URL_GET_USER_PROFILE } from "../requests_consts.js";
 
 export function showProfile() {
-    get("https://react-midterm.kreosoft.space/api/account/profile")
+    get(URL_GET_USER_PROFILE)
     .then(profile => {
         $("#avatar-image img").attr("src", profile.avatarLink ?
             profile.avatarLink : "/assets/images/no_avatar.png"
