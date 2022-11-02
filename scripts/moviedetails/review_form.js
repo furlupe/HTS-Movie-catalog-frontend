@@ -22,7 +22,7 @@ export function registerReviewFormEvents(movieId, id) {
             "isAnonymous": $(".user-review-form #reviewAnon").is(':checked')
         })
         .then(() => {
-            //location.reload()
+            location.reload()
         });
     })
 
