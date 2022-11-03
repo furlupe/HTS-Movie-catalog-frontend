@@ -7,11 +7,17 @@ export function showReviews(movieId, userId, reviews) {
         var $template = $(".review-template");
 
         var userReviewId = null;
+        if(!reviews) { 
+            resolve(1);
+        }
+
+        console.log(reviews)
         for(var review of reviews) {
             var $r = $template.clone();
             $r.removeClass("d-none");
-
-            var avatar = review.author.avatar;
+            
+            var avatar = null;
+            if (review.author) avatar = review.author.avatar;
             var color = (review.rating > 5) ? "success" : "danger";
 
             $r.addClass(`border-${color}`);
@@ -32,6 +38,8 @@ export function showReviews(movieId, userId, reviews) {
             $r.find(".review-text").text(review.reviewText)
             .addClass(`text-${color}`);
             
+            if (!review.author) continue;
+
             if (userId != review.author.userId) {
                 $(".reviews-container").append($r);
                 continue;

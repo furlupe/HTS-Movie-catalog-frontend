@@ -8,7 +8,7 @@ export function post(url, body) {
         })
     })
     .then(r => {
-        if(r.status == 401) logout();
+        if(r.status == 401) logoutWhenExpired();
         else return r;
     })
 
@@ -35,7 +35,7 @@ export function put(url, body) {
         })
     })
     .then(r => {
-        if(r.status == 401) logout();
+        if(r.status == 401) logoutWhenExpired();
         else return r;
     });
 }
@@ -49,12 +49,12 @@ export function del(url) {
         })
     })
     .then(r => {
-        if(r.status == 401) logout();
+        if(r.status == 401) logoutWhenExpired();
         else return r;
     });
 }
 
-function logout() {
+function logoutWhenExpired() {
     post("https://react-midterm.kreosoft.space/api/account/logout", {})
     .then(() => {
         localStorage.setItem("userToken", "");

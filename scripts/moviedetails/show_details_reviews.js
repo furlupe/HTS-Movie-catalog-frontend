@@ -14,7 +14,8 @@ export function showDetailsPage(userId, movieId) {
         showReviews(details.id, userId, details.reviews)
         .then(res => {
             registerReviewFormEvents(details.id, res);
-            if ( !res ) $(".user-review-form").removeClass("d-none");
+            console.log(res);
+            if (!res) $(".user-review-form").removeClass("d-none");
         });
         
         // т.е., если пользователь не залогинен, то никакой ему формы отзыва и избранного
