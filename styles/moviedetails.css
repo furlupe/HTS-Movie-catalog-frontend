@@ -3,8 +3,12 @@
     padding: 20px 20px 20px 20px;
 }
 
-#add-to-favorites, #remove-from-favorites {
+.btn {
     transition: color 0.2s, background-color 0.2s;
+}
+
+.btn:active {
+    transform: scale(0.97, 0.97);
 }
 
 #add-to-favorites:hover {
@@ -45,30 +49,12 @@
     margin-top: 20px;
 }
 
-.new-review
-    .edit-review-h,
-.new-review
-    .edit-review-button,
-.new-review
-    .cancel-edit-review-button,
-.edit-review
-    .add-review-h,
-.edit-review
-    .save-review-button
-{
-    display: none;
-}
-
-.edit-review
-    .edit-review-h,
-.edit-review
-    .edit-review-button,
-.edit-review
-    .cancel-edit-review-button,
-.new-review
-    .add-review-h,
-.new-review
-    .save-review-button
+.new-review .addable, .edit-review .editable
 {
     display: inline;
+}
+
+.new-review .editable, .edit-review .addable
+{
+    display: none;
 }

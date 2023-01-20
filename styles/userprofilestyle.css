@@ -1,0 +1,89 @@
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    margin-bottom: 7px;
+}
+
+#profilecontainer {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+button {
+    margin-bottom: 20px;
+}
+
+.col{
+    margin-top: 15px;
+    border-width: 2px;
+}
+
+#avatar-image {
+    width: 400px;
+    height: 400px;
+    margin-top: 20px;
+}
+
+#avatar-container {
+    position: relative;
+    transition: background-color 0.2s;
+    cursor: pointer;
+}
+
+#img-overlay {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+#pfp {
+    transition: opacity 0.2s;
+}
+
+#avatar-container:hover #pfp {
+    opacity: 0.2;
+}
+
+#avatar-container:hover {
+    background-color: black;
+}
+
+#avatar-container:hover #img-overlay{
+    opacity: 1;
+}
+
+
+h1 {
+    margin-bottom: 20px;
+}
+
+.readonly #save, .readonly #cancel, .editable #edit{
+    display: none;
+}
+
+
+.editable #save, .editable #cancel, .readonly #edit{
+    display: inline;
+}
+
+.valid small {
+    display: none;
+}
+
+.valid input {
+    border-color: #CED4DA;
+}
+
+.invalid small {
+    display: inline;
+}
+
+.invalid input {
+    border-color: #DF4759;
+}

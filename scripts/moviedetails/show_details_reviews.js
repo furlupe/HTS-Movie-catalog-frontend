@@ -3,9 +3,10 @@ import { showReviews } from "./reviews.js";
 import { initFavButton } from "./to_favorite_button.js";
 import { get, post, del } from "./../requests.js";
 import { registerReviewFormEvents } from "./review_form.js";
+import { URL_GET_MOVIE_DETAILS, URL_GET_USER_PROFILE } from "../requests_consts.js";
 
 export function showDetailsPage(userId, movieId) {
-    get(`https://react-midterm.kreosoft.space/api/movies/details/${movieId}`)
+    get(URL_GET_MOVIE_DETAILS(movieId))
     .then(details => {
 
         showMovieDetails(details); 
@@ -13,11 +14,12 @@ export function showDetailsPage(userId, movieId) {
         showReviews(details.id, userId, details.reviews)
         .then(res => {
             registerReviewFormEvents(details.id, res);
-            if ( !res ) $(".user-review-form").removeClass("d-none");
+            console.log(res);
+            if (!res) $(".user-review-form").removeClass("d-none");
         });
         
         // т.е., если пользователь не залогинен, то никакой ему формы отзыва и избранного
-        get(`https://react-midterm.kreosoft.space/api/account/profile`)
+        get(URL_GET_USER_PROFILE)
         .catch(() => {
             $(".user-review-form").addClass("d-none");
             $("#add-to-favorites").addClass("d-none");

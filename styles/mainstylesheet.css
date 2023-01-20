@@ -17,3 +17,7 @@
 .boldText {
     font-weight: bold!important;
 }
+
+a:hover {
+    cursor: pointer;
+}

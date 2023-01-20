@@ -1,4 +1,4 @@
-export function post(url, body = {}) {
+export function post(url, body) {
     return fetch(url, {
         method: 'POST',
         body: JSON.stringify(body),
@@ -7,6 +7,11 @@ export function post(url, body = {}) {
             'Content-Type': 'application/json'
         })
     })
+    .then(r => {
+        if(r.status == 401) logoutWhenExpired();
+        else return r;
+    })
+
 }
 
 export function get(url) {
@@ -29,6 +34,10 @@ export function put(url, body) {
             'Content-Type': 'application/json'
         })
     })
+    .then(r => {
+        if(r.status == 401) logoutWhenExpired();
+        else return r;
+    });
 }
 
 export function del(url) {
@@ -39,20 +48,16 @@ export function del(url) {
             'Content-Type': 'application/json'
         })
     })
+    .then(r => {
+        if(r.status == 401) logoutWhenExpired();
+        else return r;
+    });
 }
 
-export function login(username, passwd) {
-    post("https://react-midterm.kreosoft.space/api/account/login", {
-        "username": username,
-        "password": passwd
-    })
-    .then(response => {
-        return response.json();
-    })
-    .catch(res => {
-        console.log(res);
-    })
-    .then(user => {
-        localStorage.setItem("userToken", user.token);
+function logoutWhenExpired() {
+    post("https://react-midterm.kreosoft.space/api/account/logout", {})
+    .then(() => {
+        localStorage.setItem("userToken", "");
+        location.replace("/login/");
     });
 }

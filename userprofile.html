@@ -1,0 +1,44 @@
+<link rel="stylesheet" href="/styles/userprofilestyle.css">
+<div class="container border rounded bg-white" id="profilecontainer">
+    <div class="row">
+        <div class="col-12 col-md-4 d-flex">
+            <div id="avatar-image" class="mx-auto">
+                <div class="d-table border" id="avatar-container">
+                    <img class="img-fluid d-block m-auto" id="pfp" src="/assets/images/no_avatar.png">
+                    <img id="img-overlay" class="img-fluid d-block m-auto" src="/assets/images/upload_icon.png">
+                </div>
+            </div> 
+        </div>
+        <form class="col readonly">
+            <h1 id="profilenickname">хХх_Экзампле_Никнаме_228_хХх</h1> 
+            <div class="form-group valid" id="form-Email">
+                <label for="email" class="boldText">E-mail</label>
+                <input type="text" class="form-control" id="email" disabled>
+                <small class="form-text text-danger">Неверный\занятый E-mail</small>
+            </div>
+            <div class="form-group">
+                <label for="avatar" class="boldText">Ссылка на аватар</label>
+                <input type="text" class="form-control" id="avatar" disabled>
+            </div>
+            <div class="form-group valid" id="form-Name">
+                <label for="name" class="boldText">ФИО</label>
+                <input type="text" class="form-control" id="name" disabled>
+                <small class="form-text text-danger">Неверное имя</small>
+            </div>
+            <div class="form-group">
+                <label for="birthdate" class="boldText">Дата рождения</label>
+                <input type="date" class="form-control" id="birthdate" disabled>
+            </div>
+            <div class="form-group">
+                <label for="sex" class="boldText">Пол</label>
+                <select class="form-select" id="sex" disabled>
+                    <option value="1">Мужчина</option>
+                    <option value="0">Женщина</option>
+                </select>
+            </div>
+            <button type="button" class="btn btn-warning" id="edit">Редактировать</button>
+            <button class="btn btn-primary" id="save">Сохранить</button>
+            <button class="btn btn-danger" id="cancel">Отмена</button>
+        </form>
+    </div>
+</div>

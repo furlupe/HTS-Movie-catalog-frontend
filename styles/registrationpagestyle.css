@@ -1,0 +1,25 @@
+.boldText {
+    font-weight: bold!important;
+}
+
+#signup-form {
+    margin: 20px 125px 20px 125px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+#register {
+    margin-left: 20px;
+}
+
+.form-group {
+    margin: 0px 10px 20px 10px;
+}
+
+.invalid small, .invalid-login-taken #loginTaken{
+    display: inline;
+}
+
+.invalid #loginTaken, .invalid-login-taken #loginEmpty, .valid small {
+    display: none;
+}
